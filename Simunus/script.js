@@ -1366,8 +1366,25 @@ function atualizarConfiguracoes() {
     $("sair-conta").textContent = t().sair;
 }
 
+function atualizarSaudacaoAcesso() {
+    let conhecido = false;
+    try { conhecido = localStorage.getItem("simunus_login_anterior_v1") === "1"; } catch (_) {}
+    const idioma = estado.idioma || "pt";
+    const mensagens = {
+        pt: conhecido ? "Bem-vindo de volta" : "Bem-vindo ao Simunus",
+        en: conhecido ? "Welcome back" : "Welcome to Simunus",
+        es: conhecido ? "Bienvenido de nuevo" : "Bienvenido a Simunus"
+    };
+    const elemento = $("saudacao-acesso");
+    if (elemento) elemento.textContent = mensagens[idioma] || mensagens.pt;
+}
+
 function atualizarTextosDeAcesso() {
-    $("esqueci-senha-acesso").textContent = {pt:"Esqueci minha senha",es:"Olvidé mi contraseña",en:"Forgot password?"}[estado.idioma] || "Esqueci minha senha";
+    atualizarSaudacaoAcesso();
+    const idiomaLogin = estado.idioma || "pt";
+    $("texto-ou-acesso").textContent = {pt:"OU",en:"OR",es:"O"}[idiomaLogin] || "OU";
+    $("rodape-acesso").textContent = {pt:"Estude, pratique e acompanhe sua evolução.",en:"Study, practice, and track your progress.",es:"Estudia, practica y sigue tu progreso."}[idiomaLogin] || "Estude, pratique e acompanhe sua evolução.";
+    $("esqueci-senha-acesso").textContent = {pt:"Esqueceu a senha?",en:"Forgot password?",es:"¿Olvidaste tu contraseña?"}[idiomaLogin] || "Esqueceu a senha?";
     $("titulo-acesso").textContent = "SIMUNUS";
     $("subtitulo-acesso").textContent = t().acessoSubtitulo;
     $("rotulo-email-acesso").textContent = t().rotuloEmailAcesso;
@@ -1509,6 +1526,8 @@ atualizarEstadoBotaoEntrar();
 
     const resultado = await Auth.authenticate(email, senha);
     if (resultado.ok) {
+        try { localStorage.setItem("simunus_login_anterior_v1", "1"); } catch (_) {}
+        atualizarSaudacaoAcesso();
         $("mensagem-acesso").textContent = "";
         $("mensagem-acesso").dataset.tipo = "";
         campo.value = "";

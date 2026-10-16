@@ -21,7 +21,7 @@
     <script src="./language.js?v=language-1"></script>
     <link rel="stylesheet" href="./css/language.css?v=language-1">
     <title>SIMUNUS</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css?v=publish-1">
 </head>
 <body>
     <!-- ÚNICA LOGO VISUAL GLOBAL — permanece viva durante toda a navegação. -->
@@ -36,12 +36,13 @@
             <div class="acesso-conteudo">
                 <img class="logo-simunus logo-simunus-acesso" src="./assets/simunus-logo-dark.png" data-logo-dark="./assets/simunus-logo-dark.png" data-logo-light="./assets/simunus-logo-light.png" alt="SIMUNUS">
                 <h1 id="titulo-acesso" class="visually-hidden">SIMUNUS</h1>
+                <h2 id="saudacao-acesso" class="saudacao-acesso">Bem-vindo ao Simunus</h2>
                 <p id="subtitulo-acesso" class="subtitulo">Acesso à sua plataforma de estudos</p>
                 <form id="formulario-acesso" class="formulario-acesso" novalidate>
                     <label id="rotulo-email-acesso" for="email-acesso">E-mail</label>
-                    <input id="email-acesso" name="email" type="email" inputmode="email" autocomplete="email" placeholder="seu@email.com" required>
-<label id="rotulo-senha-acesso" for="senha-acesso">Senha</label>
-<div class="campo-senha">
+                    <div class="campo-com-icone"><span class="icone-campo" aria-hidden="true"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><input id="email-acesso" name="email" type="email" inputmode="email" autocomplete="email" placeholder="seu@email.com" required></div>
+<div class="linha-senha-acesso"><label id="rotulo-senha-acesso" for="senha-acesso">Senha</label><button id="esqueci-senha-acesso" class="link-esqueci-senha" type="button">Esqueceu a senha?</button></div>
+<div class="campo-senha campo-senha-acesso"><span class="icone-campo" aria-hidden="true"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
     <input id="senha-acesso" name="password" type="password" autocomplete="current-password" placeholder="Senha" required>
     <button
         class="alternar-visibilidade-senha"
@@ -55,8 +56,9 @@
     </button>
 </div>
                     <button id="botao-entrar" class="btn-proxima btn-entrar" type="submit" disabled>Entrar</button>
-                    <button id="esqueci-senha-acesso" class="btn-secundario" type="button">Esqueci minha senha</button>
+                    <div class="separador-acesso" aria-hidden="true"><span></span><span id="texto-ou-acesso">OU</span><span></span></div>
                     <button id="alternar-modo-acesso" class="btn-secundario" type="button">Criar conta</button>
+                    <p id="rodape-acesso" class="rodape-acesso">Estude, pratique e acompanhe sua evolução.</p>
                     <p id="mensagem-acesso" class="mensagem-acesso" aria-live="polite"></p>
                 </form>
             </div>
@@ -553,7 +555,7 @@
     <script src="./custom-phases.js"></script>
     <script src="./password-visibility.js?v=language-1"></script>
     <script src="./content-language.js?v=language-1"></script>
-    <script src="./script.js?v=language-1"></script>
+    <script src="./script.js?v=publish-1"></script>
     <script src="./language-menu.js?v=language-1"></script>
 </body>
 </html>

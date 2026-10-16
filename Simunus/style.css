@@ -2510,3 +2510,19 @@ body.custom-sort-active,body.custom-sort-active * { user-select:none !important;
 
 /* Contato omitido na distribuicao publica. */
 #botao-whatsapp-suporte:not([href]), #botao-whatsapp-renovacao:not([href]) { display: none !important; }
+
+/* Refinamento pontual do login; cadastro e demais telas permanecem intactos. */
+#tela-acesso .saudacao-acesso { margin: 4px 0 5px; font-size: calc(21px * var(--font-scale)); font-weight: 700; color: var(--text); }
+#tela-acesso .formulario-acesso { margin-top: 22px; }
+#tela-acesso .campo-com-icone, #tela-acesso .campo-senha-acesso { position: relative; width: 100%; }
+#tela-acesso .icone-campo { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); pointer-events: none; z-index: 1; }
+#tela-acesso .campo-com-icone input, #tela-acesso .campo-senha-acesso input { padding-left: 46px; }
+#tela-acesso .linha-senha-acesso { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-top: 16px; }
+#tela-acesso .linha-senha-acesso label { margin-bottom: 7px; }
+#tela-acesso .link-esqueci-senha { padding: 0; border: 0; background: none; color: var(--focus); font: inherit; font-size: calc(12px * var(--font-scale)); font-weight: 600; white-space: nowrap; opacity: 0.85; cursor: pointer; }
+#tela-acesso .separador-acesso { display: flex; align-items: center; gap: 12px; margin-top: 20px; color: var(--text-secondary); font-size: calc(12px * var(--font-scale)); }
+#tela-acesso .separador-acesso span:first-child, #tela-acesso .separador-acesso span:last-child { flex: 1; height: 1px; background: var(--border); }
+#tela-acesso #alternar-modo-acesso { margin-top: 17px; }
+#tela-acesso .rodape-acesso { margin: 18px 0 0; text-align: center; color: var(--text-secondary); font-size: calc(12px * var(--font-scale)); line-height: 1.5; }
+#tela-acesso .mensagem-acesso:empty { min-height: 0; margin: 0; }
+
