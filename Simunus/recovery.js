@@ -8,7 +8,16 @@
             resetTitle: "Redefinir senha", resetDescription: "Escolha uma nova senha para sua conta.",
             email: "E-mail cadastrado", send: "Enviar link de recuperação", sending: "Enviando...", newPassword: "Nova senha", confirm: "Confirmar nova senha",
             wait: "Enviar novamente em {time}", waitingLabel: "Envio temporariamente indisponível.", available: "Você já pode enviar outro link.", checkMail: "Conferir e-mail",
-            chooseProvider: "Abra seu serviço de e-mail ou escolha uma opção:", mailHint: "Abra a mensagem mais recente. Confira também Spam ou Lixo eletrônico.",
+            chooseProvider: "Escolha o serviço em que você costuma acessar esse e-mail.",
+            providerTitle: "Onde deseja conferir seu e-mail?",
+            otherService: "Usar outro serviço",
+            openProvider: "Abrir {provider}",
+            openBrowser: "Abrir no navegador",
+            receivedAccount: "Abra a conta que recebeu o link de recuperação.",
+            providerExplanation: "A escolha abre o serviço; não adiciona nem configura sua conta.",
+            appHint: "O aparelho pode abrir o aplicativo, se disponível. A abertura depende das suas preferências.",
+            closeMail: "Fechar",
+            mailHint: "Abra a mensagem mais recente. Confira também Spam ou Lixo eletrônico.",
             save: "Salvar nova senha", login: "Voltar", another: "Solicitar outro link",
             policy: "Use entre 8 e 128 caracteres. Requisitos adicionais de segurança serão verificados pelo servidor.",
             accepted: "Se existir uma conta vinculada a este e-mail, enviaremos as instruções para redefinir sua senha.",
@@ -29,7 +38,16 @@
             resetTitle: "Restablecer contraseña", resetDescription: "Elige una nueva contraseña para tu cuenta.",
             email: "Correo registrado", send: "Enviar enlace de recuperación", sending: "Enviando...", newPassword: "Nueva contraseña", confirm: "Confirmar nueva contraseña",
             wait: "Volver a enviar en {time}", waitingLabel: "Envío temporalmente no disponible.", available: "Ya puedes enviar otro enlace.", checkMail: "Revisar correo",
-            chooseProvider: "Abre tu servicio de correo o elige una opción:", mailHint: "Abre el mensaje más reciente. Revisa también Spam o Correo no deseado.",
+            chooseProvider: "Elige el servicio donde sueles acceder a este correo.",
+            providerTitle: "¿Dónde deseas revisar tu correo?",
+            otherService: "Usar otro servicio",
+            openProvider: "Abrir {provider}",
+            openBrowser: "Abrir en el navegador",
+            receivedAccount: "Abre la cuenta que recibió el enlace de recuperación.",
+            providerExplanation: "La selección abre el servicio; no añade ni configura tu cuenta.",
+            appHint: "El dispositivo puede abrir la aplicación, si está disponible. Depende de tus preferencias.",
+            closeMail: "Cerrar",
+            mailHint: "Abre el mensaje más reciente. Revisa también Spam o Correo no deseado.",
             save: "Guardar nueva contraseña", login: "Volver", another: "Solicitar otro enlace",
             policy: "Usa entre 8 y 128 caracteres. El servidor verificará los requisitos adicionales de seguridad.",
             accepted: "Si existe una cuenta vinculada a este correo, enviaremos las instrucciones para restablecer tu contraseña.",
@@ -50,7 +68,16 @@
             resetTitle: "Reset password", resetDescription: "Choose a new password for your account.",
             email: "Registered email", send: "Send recovery link", sending: "Sending...", newPassword: "New password", confirm: "Confirm new password",
             wait: "Send again in {time}", waitingLabel: "Sending is temporarily unavailable.", available: "You can send another link now.", checkMail: "Check email",
-            chooseProvider: "Open your email service or choose an option:", mailHint: "Open the most recent message. Also check Spam or Junk.",
+            chooseProvider: "Choose the service you normally use to access this email.",
+            providerTitle: "Where would you like to check your email?",
+            otherService: "Use another service",
+            openProvider: "Open {provider}",
+            openBrowser: "Open in browser",
+            receivedAccount: "Open the account that received the recovery link.",
+            providerExplanation: "Your choice opens the service; it does not add or configure your account.",
+            appHint: "Your device may open the app, if available. This depends on your preferences.",
+            closeMail: "Close",
+            mailHint: "Open the most recent message. Also check Spam or Junk.",
             save: "Save new password", login: "Back", another: "Request another link",
             policy: "Use 8–128 characters. Additional security requirements will be checked by the server.",
             accepted: "If an account is associated with this email, we will send instructions to reset your password.",
@@ -77,16 +104,31 @@
     let activeSessionRegistered = false, feedbackKey = "", feedbackKind = "";
     const text = key => window.SimunusI18n.t("recovery", key);
     const cooldown = window.SimunusRecoveryCooldown;
-    let mailAccepted = cooldown.read().count > 0, inboxHref = null;
+    let mailAccepted = cooldown.read().count > 0, inboxProvider = null;
     let announcedUntil = 0;
+    const providers = Object.freeze({
+        gmail: { name: "Gmail", url: "https://mail.google.com/mail/u/0/#inbox", domains: ["gmail.com", "googlemail.com"] },
+        outlook: { name: "Outlook", url: "https://outlook.live.com/mail/0/inbox", domains: ["outlook.com", "hotmail.com", "live.com", "msn.com"] },
+        yahoo: { name: "Yahoo Mail", url: "https://mail.yahoo.com/", domains: ["yahoo.com", "yahoo.com.br"] },
+        icloud: { name: "iCloud Mail", url: "https://www.icloud.com/mail", domains: ["icloud.com", "me.com", "mac.com"] }
+    });
     function inboxFor(email) {
-        const domain = email.slice(email.lastIndexOf("@") + 1).toLowerCase();
-        if (["gmail.com", "googlemail.com"].includes(domain)) return "https://mail.google.com/mail/u/0/#inbox";
-        if (/^(outlook|hotmail|live)\.(com|com\.br|es|co\.uk|fr|de|it|pt)$/.test(domain)) return "https://outlook.live.com/mail/0/inbox";
-        if (/^yahoo\.(com|com\.br|es|co\.uk|fr|de|it|ca)$/.test(domain)) return "https://mail.yahoo.com/";
-        if (["icloud.com", "me.com", "mac.com"].includes(domain)) return "https://www.icloud.com/mail";
-        return null;
+        const domain = email.trim().slice(email.trim().lastIndexOf("@") + 1).toLowerCase();
+        return Object.values(providers).find(provider => provider.domains.includes(domain)) || null;
     }
+    const mailDialog = $("recovery-mail-options");
+    let mailOpener = null;
+    function closeMailDialog() { if (mailDialog.open) mailDialog.close(); }
+    function openMailDialog(event) {
+        mailOpener = event.currentTarget;
+        if (!mailDialog.open) mailDialog.showModal();
+    }
+    mailDialog.addEventListener("close", () => { if (mailOpener && !mailOpener.hidden) mailOpener.focus(); });
+    mailDialog.addEventListener("click", event => {
+        const bounds = mailDialog.getBoundingClientRect();
+        if (event.target === mailDialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) closeMailDialog();
+    });
+    $("recovery-mail-close").addEventListener("click", closeMailDialog);
     function updateCooldown() {
         const seconds = cooldown.remaining();
         const time = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
@@ -112,6 +154,7 @@
         $("recovery-title").textContent = text(mode === "password" ? "resetTitle" : "title");
         $("recovery-description").textContent = text(mode === "password" ? "resetDescription" : "description");
         document.querySelectorAll("[data-text]").forEach(el => el.textContent = text(el.dataset.text));
+        document.querySelectorAll("[data-browser-provider]").forEach(el => el.setAttribute("aria-label", `${text("openBrowser")} — ${el.dataset.browserProvider}`));
         $("recovery-request").hidden = mode !== "request";
         $("recovery-password").hidden = mode !== "password" || !validRecovery || passwordUpdated;
         $("recovery-another").hidden = mode !== "invalid";
@@ -121,10 +164,16 @@
         document.querySelectorAll("input, button, select").forEach(el => el.disabled = busy);
         document.querySelectorAll("form").forEach(el => el.setAttribute("aria-busy", String(busy)));
         $("recovery-mail-actions").hidden = !mailAccepted || mode !== "request";
-        $("recovery-check-mail").hidden = !inboxHref;
-        if (inboxHref) $("recovery-check-mail").href = inboxHref;
-        $("recovery-mail-choice").hidden = Boolean(inboxHref);
-        $("recovery-mail-choice").disabled = false;
+        $("recovery-check-mail").hidden = !inboxProvider;
+        $("recovery-browser-mail").hidden = !inboxProvider;
+        if (inboxProvider) {
+            $("recovery-check-mail").href = inboxProvider.url;
+            $("recovery-check-mail").textContent = text("openProvider").replace("{provider}", inboxProvider.name);
+            $("recovery-browser-mail").href = inboxProvider.url;
+        }
+        $("recovery-mail-choice").hidden = Boolean(inboxProvider);
+        $("recovery-other-service").hidden = !inboxProvider;
+        for (const id of ["recovery-mail-choice", "recovery-other-service", "recovery-mail-close"]) $(id).disabled = false;
         updateCooldown();
         if (busy) {
             const button = document.querySelector(mode === "request" ? "#recovery-request button" : "#recovery-password button");
@@ -153,9 +202,8 @@
         validRecovery = false; busy = false; mode = "request"; feedbackKey = ""; render();
         $("recovery-email").focus();
     });
-    $("recovery-mail-choice").addEventListener("click", () => {
-        $("recovery-mail-options").hidden = !$("recovery-mail-options").hidden;
-    });
+    $("recovery-mail-choice").addEventListener("click", openMailDialog);
+    $("recovery-other-service").addEventListener("click", openMailDialog);
     async function requestLink() {
         if (cooldown.remaining() > 0) return;
         const email = $("recovery-email").value.trim();
@@ -172,8 +220,8 @@
             const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
             if (error) throw error;
             cooldown.accepted();
-            mailAccepted = true; inboxHref = inboxFor(email);
-            $("recovery-mail-options").hidden = true;
+            mailAccepted = true; inboxProvider = inboxFor(email);
+            closeMailDialog();
             feedback("accepted", "success");
         } catch (error) {
             if (errorKey(error) === "rate") cooldown.limited(window.SimunusSupabase.getRecoveryRetryAfter?.());

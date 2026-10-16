@@ -28,3 +28,15 @@ html[data-tema="escuro"] .recovery-page #recovery-request button:disabled { back
 .recovery-page #recovery-check-mail { display:flex; align-items:center; justify-content:center; text-decoration:none; min-height:44px; width:100%; margin-top:16px; color:var(--text); background:var(--surface-soft); border-color:var(--border); }
 .recovery-page .recovery-mail-hint, .recovery-page #recovery-mail-options p { font-size:12px; color:var(--text-secondary); }
 .recovery-page #recovery-mail-options a { margin:4px 12px 4px 0; }
+
+/* Inbox shortcuts and accessible service chooser. */
+.recovery-page .recovery-mail-text-link { display:block; width:auto; min-height:44px; margin:4px auto; padding:10px; background:transparent; border:0; color:var(--focus); font:inherit; font-size:.85rem; text-decoration:underline; text-align:center; cursor:pointer; box-sizing:border-box; }
+.recovery-page #recovery-mail-options { width:min(430px,calc(100vw - 32px)); max-height:calc(100dvh - 32px); overflow:auto; box-sizing:border-box; padding:20px; border:1px solid var(--border); border-radius:18px; background:var(--surface); color:var(--text); box-shadow:var(--shadow); }
+.recovery-page #recovery-mail-options::backdrop { background:rgba(0,0,0,.45); }
+.recovery-mail-dialog-header { display:flex; align-items:flex-start; gap:12px; justify-content:space-between; }
+.recovery-mail-dialog-header h2 { margin:0; font-size:1.15rem; }
+.recovery-mail-dialog-header button { flex-shrink:0; padding:8px; background:var(--surface-soft); color:var(--text); border:1px solid var(--border); border-radius:8px; font:inherit; }
+.recovery-provider-list { display:grid; gap:8px; }
+.recovery-provider-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; gap:8px; }
+.recovery-page #recovery-mail-options .btn-secundario { display:flex; align-items:center; justify-content:center; gap:8px; min-height:44px; margin:0; padding:8px; text-decoration:none; color:var(--text); background:var(--surface-soft); }
+.recovery-page #recovery-mail-options .recovery-mail-text-link { margin:0; overflow-wrap:anywhere; }
