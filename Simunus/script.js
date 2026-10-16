@@ -1362,6 +1362,7 @@ function atualizarConfiguracoes() {
 }
 
 function atualizarTextosDeAcesso() {
+    $("esqueci-senha-acesso").textContent = {pt:"Esqueci minha senha",es:"Olvidé mi contraseña",en:"Forgot password?"}[estado.idioma] || "Esqueci minha senha";
     $("titulo-acesso").textContent = "SIMUNUS";
     $("subtitulo-acesso").textContent = t().acessoSubtitulo;
     $("rotulo-email-acesso").textContent = t().rotuloEmailAcesso;
@@ -1592,6 +1593,7 @@ async function processarCadastro(event) {
 }
 
 async function inicializarAplicacaoComAcesso() {
+    if (window.SIMUNUS_RECOVERY_REDIRECT) return;
     const resultado = await Auth.initializeSession();
     if (resultado.ok) {
         carregarDadosEstudo();
@@ -5263,6 +5265,11 @@ document.addEventListener("keydown", (event) => { if(event.key === "Escape" && !
 $("formulario-acesso").addEventListener("submit", processarAcesso);
 $("email-acesso").addEventListener("input", atualizarEstadoBotaoEntrar);
 $("senha-acesso").addEventListener("input", atualizarEstadoBotaoEntrar);
+$("esqueci-senha-acesso").addEventListener("click", () => {
+    const target = new URL("./recovery.html", location.href);
+    target.searchParams.set("lang", estado.idioma || "pt");
+    location.assign(target.href);
+});
 $("alternar-modo-acesso").addEventListener("click", abrirCadastro);
 $("formulario-cadastro").addEventListener("submit", processarCadastro);
 $("voltar-login-cadastro").addEventListener("click", voltarParaLoginCadastro);

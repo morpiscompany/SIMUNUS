@@ -1,0 +1,21 @@
+.recovery-page { min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px 16px; box-sizing:border-box; }
+.recovery-page main { margin:auto; max-height:none; }
+.recovery-logo { display:block; width:160px; max-width:65%; margin:0 auto 20px; }
+.recovery-page h1 { font-size:1.5rem; margin-top:20px; }
+.recovery-page p { line-height:1.5; overflow-wrap:anywhere; }
+.recovery-page form { display:flex; flex-direction:column; gap:10px; }
+.recovery-page [hidden] { display:none !important; }
+.recovery-page input, .recovery-page select { width:100%; min-height:48px; padding:12px 14px; border:1px solid var(--border); border-radius:10px; background:var(--surface-soft); color:var(--text); font:inherit; box-sizing:border-box; }
+.recovery-page button { min-height:44px; }
+.recovery-page button:disabled { opacity:.6; cursor:wait; }
+.recovery-page a { display:inline-block; margin-top:20px; color:var(--focus); }
+.recovery-page :focus-visible { outline:2px solid var(--focus); outline-offset:3px; }
+.recovery-page .senha-modal-feedback[data-kind="error"] { color:var(--text); }
+.recovery-page .senha-modal-feedback[data-kind="success"] { color:var(--text); }
+.recovery-page #recovery-policy { font-size:.85rem; color:var(--text-secondary); }
+#tela-acesso .link-esqueci-senha { cursor:pointer; }
+
+/* Standalone recovery card; published base has no password-modal component. */
+.recovery-page .senha-modal { width:min(450px,100%); padding:24px; border:1px solid var(--border); border-radius:18px; background:var(--surface); color:var(--text); box-shadow:var(--shadow); }
+.recovery-page .senha-modal-feedback { min-height:1.2em; margin-top:16px; }
+@media(max-width:430px) { .recovery-page .senha-modal { padding:18px; } }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3 'sha256-MmOcF+2OTpniioOCZIq7Mw9Yx7JqG+qq3drV0IuLWpA='; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' https: data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <meta name="robots" content="noindex">
+    <title>SIMUNUS — Recuperar senha</title>
+    <script src="./recovery-capture.js?v=recovery-1"></script>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/recovery.css?v=recovery-1">
+</head>
+<body class="recovery-page">
+    <main class="senha-modal" aria-labelledby="recovery-title">
+        <img class="recovery-logo" src="./assets/simunus-logo-light.png" alt="SIMUNUS">
+        <label for="recovery-language" class="visually-hidden">Language / Idioma</label>
+        <select id="recovery-language" aria-label="Language / Idioma"><option value="pt">Português</option><option value="es">Español</option><option value="en">English</option></select>
+        <h1 id="recovery-title"></h1>
+        <p id="recovery-description"></p>
+        <form id="recovery-request" novalidate hidden>
+            <label for="recovery-email" data-text="email">E-mail</label>
+            <input id="recovery-email" type="email" autocomplete="email" inputmode="email" required maxlength="254">
+            <button class="btn-proxima" type="submit" data-text="send"></button>
+        </form>
+        <form id="recovery-password" novalidate hidden>
+            <label for="recovery-new" data-text="newPassword"></label>
+            <input id="recovery-new" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="recovery-policy">
+            <label for="recovery-confirm" data-text="confirm"></label>
+            <input id="recovery-confirm" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+            <p id="recovery-policy" data-text="policy"></p>
+            <button class="btn-proxima" type="submit" data-text="save"></button>
+        </form>
+        <p id="recovery-feedback" class="senha-modal-feedback" role="status" aria-live="polite"></p>
+        <button id="recovery-retry-cleanup" class="btn-proxima" type="button" data-text="retryCleanup" hidden></button>
+        <button id="recovery-another" class="btn-secundario" type="button" data-text="another" hidden></button>
+        <a id="recovery-login" href="./index.html" data-text="login"></a>
+        <noscript>Ative o JavaScript para recuperar sua senha.</noscript>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3" integrity="sha384-dl/4LkSyQ4uEucc48NM6VDZLAjLLq9yMzZ5JLXumBq7Ld33XBof73hseOqPhO89+" crossorigin="anonymous"></script>
+    <script src="./supabase.js?v=recovery-1"></script>
+    <script src="./recovery-config.js?v=recovery-1"></script>
+    <script src="./recovery.js?v=recovery-1"></script>
+</body>
+</html>

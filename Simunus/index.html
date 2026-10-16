@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3 'sha256-MmOcF+2OTpniioOCZIq7Mw9Yx7JqG+qq3drV0IuLWpA='; connect-src 'self' https://*.supabase.co wss://*.supabase.co; img-src 'self' https: data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
     <meta name="referrer" content="no-referrer">
+    <script src="./recovery-entry.js?v=recovery-1"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="description" content="SIMUNUS — plataforma de estudos médicos e simulados.">
     <script>
@@ -51,6 +52,7 @@
     </button>
 </div>
                     <button id="botao-entrar" class="btn-proxima btn-entrar" type="submit" disabled>Entrar</button>
+                    <button id="esqueci-senha-acesso" class="btn-secundario" type="button">Esqueci minha senha</button>
                     <button id="alternar-modo-acesso" class="btn-secundario" type="button">Criar conta</button>
                     <p id="mensagem-acesso" class="mensagem-acesso" aria-live="polite"></p>
                 </form>
@@ -541,11 +543,11 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3" integrity="sha384-dl/4LkSyQ4uEucc48NM6VDZLAjLLq9yMzZ5JLXumBq7Ld33XBof73hseOqPhO89+" crossorigin="anonymous"></script>
-    <script src="./supabase.js"></script>
+    <script src="./supabase.js?v=recovery-1"></script>
     <script src="./simunus-api.js"></script>
-    <script src="./auth.js"></script>
+    <script src="./auth.js?v=recovery-1"></script>
     <script src="./custom-phases.js"></script>
     <script src="./password-visibility.js"></script>
-    <script src="./script.js"></script>
+    <script src="./script.js?v=recovery-1"></script>
 </body>
 </html>

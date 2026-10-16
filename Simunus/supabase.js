@@ -23,12 +23,15 @@
         );
     }
 
-    const client = isConfigured()
+    const recoveryPage = location.pathname.endsWith("/recovery.html");
+    const client = isConfigured() && !window.SIMUNUS_RECOVERY_REDIRECT
         ? window.supabase.createClient(config.url, config.anonKey, {
             auth: {
-                persistSession: true,
+                persistSession: !recoveryPage,
                 autoRefreshToken: true,
-                detectSessionInUrl: true
+                detectSessionInUrl: !recoveryPage,
+                flowType: "implicit",
+                ...(recoveryPage ? { storageKey: "simunus-recovery-memory" } : {})
             }
         })
         : null;

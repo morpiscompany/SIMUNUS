@@ -84,6 +84,7 @@
     }
 
     async function initializeSession() {
+        if (window.SIMUNUS_RECOVERY_REDIRECT) return { ok: false, code: "no-session" };
         currentEmail = null;
         if (!client) return { ok: false, code: "load-error" };
         const { data, error } = await client.auth.getSession();
