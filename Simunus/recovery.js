@@ -4,12 +4,12 @@
 (() => {
     const messages = {
         pt: {
-            title: "Recuperar senha", description: "Informe seu e-mail para receber as instruções.",
+            title: "Recuperar senha", description: "Informe seu e-mail cadastrado para receber as instruções.",
             resetTitle: "Redefinir senha", resetDescription: "Escolha uma nova senha para sua conta.",
-            email: "E-mail", send: "Enviar link", sending: "Enviando...", newPassword: "Nova senha", confirm: "Confirmar nova senha",
-            wait: "Aguarde {time} para enviar outro link.", available: "Você já pode enviar outro link.", checkMail: "Conferir e-mail",
+            email: "E-mail cadastrado", send: "Enviar link de recuperação", sending: "Enviando...", newPassword: "Nova senha", confirm: "Confirmar nova senha",
+            wait: "Enviar novamente em {time}", waitingLabel: "Envio temporariamente indisponível.", available: "Você já pode enviar outro link.", checkMail: "Conferir e-mail",
             chooseProvider: "Abra seu serviço de e-mail ou escolha uma opção:", mailHint: "Abra a mensagem mais recente. Confira também Spam ou Lixo eletrônico.",
-            save: "Salvar nova senha", login: "Voltar para entrar", another: "Solicitar outro link",
+            save: "Salvar nova senha", login: "Voltar", another: "Solicitar outro link",
             policy: "Use entre 8 e 128 caracteres. Requisitos adicionais de segurança serão verificados pelo servidor.",
             accepted: "Se existir uma conta vinculada a este e-mail, enviaremos as instruções para redefinir sua senha.",
             invalidEmail: "Digite um e-mail válido.", mismatch: "As senhas não coincidem.",
@@ -25,12 +25,12 @@
             partial: "Senha alterada e sessões revogadas no Supabase. Não foi possível sincronizar o controle de sessão única do SIMUNUS. Entre novamente; se houver problema, contate o suporte."
         },
         es: {
-            title: "Recuperar contraseña", description: "Ingresa tu correo para recibir las instrucciones.",
+            title: "Recuperar contraseña", description: "Ingresa tu correo registrado para recibir las instrucciones.",
             resetTitle: "Restablecer contraseña", resetDescription: "Elige una nueva contraseña para tu cuenta.",
-            email: "Correo electrónico", send: "Enviar enlace", sending: "Enviando...", newPassword: "Nueva contraseña", confirm: "Confirmar nueva contraseña",
-            wait: "Espera {time} para enviar otro enlace.", available: "Ya puedes enviar otro enlace.", checkMail: "Revisar correo",
+            email: "Correo registrado", send: "Enviar enlace de recuperación", sending: "Enviando...", newPassword: "Nueva contraseña", confirm: "Confirmar nueva contraseña",
+            wait: "Volver a enviar en {time}", waitingLabel: "Envío temporalmente no disponible.", available: "Ya puedes enviar otro enlace.", checkMail: "Revisar correo",
             chooseProvider: "Abre tu servicio de correo o elige una opción:", mailHint: "Abre el mensaje más reciente. Revisa también Spam o Correo no deseado.",
-            save: "Guardar nueva contraseña", login: "Volver a iniciar sesión", another: "Solicitar otro enlace",
+            save: "Guardar nueva contraseña", login: "Volver", another: "Solicitar otro enlace",
             policy: "Usa entre 8 y 128 caracteres. El servidor verificará los requisitos adicionales de seguridad.",
             accepted: "Si existe una cuenta vinculada a este correo, enviaremos las instrucciones para restablecer tu contraseña.",
             invalidEmail: "Ingresa un correo válido.", mismatch: "Las contraseñas no coinciden.",
@@ -46,12 +46,12 @@
             partial: "Contraseña actualizada y sesiones revocadas en Supabase. No se pudo sincronizar el control de sesión única de SIMUNUS. Inicia sesión de nuevo; si hay problemas, contacta al soporte."
         },
         en: {
-            title: "Recover password", description: "Enter your email to receive instructions.",
+            title: "Recover password", description: "Enter your registered email address to receive instructions.",
             resetTitle: "Reset password", resetDescription: "Choose a new password for your account.",
-            email: "Email", send: "Send link", sending: "Sending...", newPassword: "New password", confirm: "Confirm new password",
-            wait: "Wait {time} before sending another link.", available: "You can send another link now.", checkMail: "Check email",
+            email: "Registered email", send: "Send recovery link", sending: "Sending...", newPassword: "New password", confirm: "Confirm new password",
+            wait: "Send again in {time}", waitingLabel: "Sending is temporarily unavailable.", available: "You can send another link now.", checkMail: "Check email",
             chooseProvider: "Open your email service or choose an option:", mailHint: "Open the most recent message. Also check Spam or Junk.",
-            save: "Save new password", login: "Back to sign in", another: "Request another link",
+            save: "Save new password", login: "Back", another: "Request another link",
             policy: "Use 8–128 characters. Additional security requirements will be checked by the server.",
             accepted: "If an account is associated with this email, we will send instructions to reset your password.",
             invalidEmail: "Enter a valid email.", mismatch: "Passwords do not match.",
@@ -71,13 +71,14 @@
     const $ = id => document.getElementById(id);
     const callback = window.SimunusRecoveryCallback || {};
     delete window.SimunusRecoveryCallback;
-    let language = messages[callback.language] ? callback.language : (navigator.language || "pt").split("-")[0];
-    if (!messages[language]) language = "en";
+    const preferences = navigator.languages?.length ? navigator.languages : [navigator.language || "en"];
+    const language = preferences.map(value => String(value).toLowerCase().split(/[-_]/)[0])
+        .find(value => Object.hasOwn(messages, value)) || "en";
     let mode = "request", busy = false, validRecovery = false, passwordUpdated = false;
     let activeSessionRegistered = false, feedbackKey = "", feedbackKind = "";
     const text = key => messages[language][key];
     const cooldown = window.SimunusRecoveryCooldown;
-    let mailAccepted = cooldown.read().lastAcceptedAt > 0, inboxHref = null;
+    let mailAccepted = cooldown.read().count > 0, inboxHref = null;
     let announcedUntil = 0;
     function inboxFor(email) {
         const domain = email.slice(email.lastIndexOf("@") + 1).toLowerCase();
@@ -91,10 +92,14 @@
         const seconds = cooldown.remaining();
         const time = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
         const label = seconds ? text("wait").replace("{time}", time) : "";
-        $("recovery-countdown").textContent = label;
-        document.querySelector("#recovery-request button").disabled = busy || seconds > 0;
+        const button = document.querySelector("#recovery-request button");
+        button.disabled = busy || seconds > 0;
+        button.textContent = busy ? text("sending") : seconds ? label : text("send");
+        button.dataset.waiting = String(seconds > 0 && !busy);
+        if (seconds && !busy) button.setAttribute("aria-label", text("waitingLabel"));
+        else button.removeAttribute("aria-label");
         const until = seconds ? cooldown.read().until : 0;
-        if (until !== announcedUntil) {
+        if (mode === "request" && until !== announcedUntil) {
             $("recovery-cooldown-status").textContent = seconds ? label : text("available");
             announcedUntil = until;
         }
@@ -103,7 +108,8 @@
         document.querySelector(".recovery-logo").src = document.documentElement.dataset.tema === "escuro"
             ? "./assets/simunus-logo-dark.png" : "./assets/simunus-logo-light.png";
         document.documentElement.lang = language === "pt" ? "pt-BR" : language;
-        $("recovery-language").value = language;
+        document.title = `SIMUNUS — ${text(mode === "password" ? "resetTitle" : "title")}`;
+        $("recovery-email").placeholder = text("email");
         $("recovery-title").textContent = text(mode === "password" ? "resetTitle" : "title");
         $("recovery-description").textContent = text(mode === "password" ? "resetDescription" : "description");
         document.querySelectorAll("[data-text]").forEach(el => el.textContent = text(el.dataset.text));
@@ -140,7 +146,6 @@
     function invalidate() {
         validRecovery = false; mode = "invalid"; feedback("invalidLink");
     }
-    $("recovery-language").addEventListener("change", event => { language = event.target.value; render(); });
     $("recovery-another").addEventListener("click", async () => {
         if (busy) return;
         busy = true; render();
@@ -153,14 +158,14 @@
         $("recovery-mail-options").hidden = !$("recovery-mail-options").hidden;
     });
     async function requestLink() {
-        if (busy || cooldown.remaining() > 0) return;
+        if (cooldown.remaining() > 0) return;
         const email = $("recovery-email").value.trim();
         $("recovery-email").value = email;
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
             feedback("invalidEmail"); $("recovery-email").focus(); return;
         }
         if (!client) { feedback("unavailable"); return; }
-        busy = true; feedbackKey = ""; render();
+        feedbackKey = ""; render();
         try {
             // Default is the exact production URL, even when requesting from localhost.
             // Missing/invalid configuration fails before sending any email request.
@@ -175,14 +180,17 @@
             if (errorKey(error) === "rate") cooldown.limited(window.SimunusSupabase.getRecoveryRetryAfter?.());
             feedback(errorKey(error));
         }
-        finally { busy = false; render(); }
     }
     $("recovery-request").addEventListener("submit", async event => {
         event.preventDefault();
+        if (busy || cooldown.remaining() > 0) return;
+        busy = true; render();
         // Serializes overlapping requests from same-origin tabs where Web Locks is available.
-        if (navigator.locks?.request) {
-            await navigator.locks.request("simunus-recovery-send", { ifAvailable: true }, lock => lock ? requestLink() : undefined);
-        } else { await requestLink(); }
+        try {
+            if (navigator.locks?.request) {
+                await navigator.locks.request("simunus-recovery-send", () => requestLink());
+            } else { await requestLink(); }
+        } finally { busy = false; render(); }
     });
     cooldown.subscribe(updateCooldown);
     setInterval(updateCooldown, 1000);

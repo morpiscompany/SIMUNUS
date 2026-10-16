@@ -1,20 +1,26 @@
 /* UI-only, browser-wide resend pacing. No account identifiers or credentials. */
 (() => {
-    const key = "simunus-recovery-cooldown-v1";
-    const empty = () => ({ count: 0, lastAcceptedAt: 0, until: 0 });
+    const key = "simunus-recovery-cooldown-v2";
+    const empty = () => ({ count: 0, windowStartedAt: 0, until: 0 });
     let memory = empty();
     let storageAvailable = true;
     const listeners = new Set();
     let channel;
     function valid(value) {
-        return value && Number.isInteger(value.count) && value.count >= 0 && value.count <= 5
-            && Number.isFinite(value.lastAcceptedAt) && value.lastAcceptedAt >= 0
+        return value && Number.isSafeInteger(value.count) && value.count >= 0
+            && Number.isFinite(value.windowStartedAt) && value.windowStartedAt >= 0
             && Number.isFinite(value.until) && value.until >= 0;
     }
     function read() {
         try {
             const stored = storageAvailable ? JSON.parse(localStorage.getItem(key)) : null;
             if (valid(stored)) memory = stored;
+            else if (!stored && storageAvailable) {
+                // Preserve an old pending wait, but start the new policy's 24h window
+                // only on its first accepted request. V1 did not record a window start.
+                const legacy = JSON.parse(localStorage.getItem("simunus-recovery-cooldown-v1"));
+                if (legacy && Number.isFinite(legacy.until) && legacy.until > memory.until) memory.until = legacy.until;
+            }
         } catch (_) { storageAvailable = false; }
         return { ...memory };
     }
@@ -27,8 +33,9 @@
     }
     function accepted() {
         const state = read(), now = Date.now();
-        const count = Math.min(5, (now - state.lastAcceptedAt >= 3600000 ? 0 : state.count) + 1);
-        write({ count, lastAcceptedAt: now, until: Math.max(state.until, now + count * 60000) });
+        const restart = !state.windowStartedAt || now - state.windowStartedAt >= 86400000;
+        const count = restart ? 1 : state.count + 1;
+        write({ count, windowStartedAt: restart ? now : state.windowStartedAt, until: Math.max(state.until, now + count * 60000) });
     }
     function limited(retryAfter) {
         const state = read(), now = Date.now();
