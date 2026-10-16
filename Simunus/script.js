@@ -93,13 +93,17 @@ const textos = {
         bomComeco: "Bom começo. Vale a pena revisar os pontos que você errou.",
         continueEstudando: "Continue estudando. Refazer o simulado pode ajudar a fixar o conteúdo.",
         configuracoes: "Configurações",
-        configuracoesSubtitulo: "Personalize a aparência do aplicativo.",
+        configuracoesSubtitulo: "Personalize sua experiência no aplicativo.",
         aparencia: "Aparência",
         aparenciaDescricao: "Escolha o modo de visualização.",
         tamanhoFonte: "Tamanho da Fonte",
         tamanhoFonteDescricao: "Ajuste a leitura para seu conforto.",
         idiomaConfig: "Idioma",
         idiomaConfigDescricao: "Idioma atualmente selecionado.",
+        segurancaConta: "Segurança da Conta",
+        segurancaContaDescricao: "Gerencie a segurança e as credenciais de acesso.",
+        redefinirSenha: "Redefinir Senha",
+        redefinirSenhaDescricao: "Altere sua senha de acesso.",
         fontePequena: "Pequena", fonteNormal: "Normal", fonteGrande: "Grande", fonteMuitoGrande: "Muito grande",
         modoClaro: "Modo claro", modoEscuro: "Modo escuro", voltar: "Voltar",
         sair: "Sair",
@@ -126,7 +130,7 @@ const textos = {
         alternativasErradas: "Alternativas Incorretas", alternativasErradasES: "Alternativas incorrectas (Español)", alternativasErradasAjuda: "Preencha cada opção em seu próprio campo. A quarta opção é opcional.",
         confirmarExcluirMateria: "Excluir esta fase? As questões dela também serão removidas. Esta ação não poderá ser desfeita.",
         semQuestoes: "Adicione pelo menos uma questão.", camposObrigatorios: "Preencha os campos obrigatórios.",
-         dashboard: { title: "Seu estudo, em continuidade", subtitle: "Acompanhe seu progresso e retome de onde parou.", next: "PRÓXIMO PASSO", performance: "Seu desempenho", summary: "Resumo geral", answered: "Questões respondidas", correct: "Acertos", accuracy: "Aproveitamento", subjects: "Matérias estudadas", review: "Modo Revisão", reviewDescription: "Revise questões importantes.", marked: "marcadas", saved: "salvas", evolution: "Evolução", sessions: "Últimas sessões", shareEvolution: "Compartilhar Evolução", explore: "Explorar Matérias", reviewMarked: "Revisar salvas", reviewMode: "Modo Revisão", resume: "Continuar", choose: "Escolher matéria", yourPhases: "Minhas Fases", startTitle: "Comece seu primeiro estudo", startDescription: "Escolha uma matéria para começar a construir seu histórico.", continueQuestion: "Questão", continueStudying: "Continue estudando para acompanhar sua evolução.", recentSessions: "sessões recentes · aproveitamento por sessão", noSaved: "Você ainda não salvou nenhuma questão.", savedForReview: "questão salva para revisar", savedForReviewPlural: "questões salvas para revisar", wrongQuestions: "Questões Erradas", savedQuestions: "Questões Salvas", recentQuestions: "Últimas Feitas" },
+         dashboard: { title: "Seu estudo, em continuidade", subtitle: "Acompanhe seu progresso e retome de onde parou.", next: "PRÓXIMO PASSO", performance: "Seu Desempenho", summary: "Resumo Geral", answered: "Questões Respondidas", correct: "Acertos", accuracy: "Aproveitamento", subjects: "Matérias Estudadas", review: "Modo Revisão", reviewDescription: "Revise Questões Importantes.", marked: "marcadas", saved: "salvas", evolution: "Evolução", sessions: "Últimas Sessões", shareEvolution: "Compartilhar Evolução", explore: "Explorar Matérias", reviewMarked: "Revisar Salvas", reviewMode: "Modo Revisão", resume: "Continuar", choose: "Escolher Matéria", yourPhases: "Minhas Fases", startTitle: "Comece seu primeiro estudo", startDescription: "Escolha uma matéria para começar a construir seu histórico.", continueQuestion: "Questão", continueStudying: "Continue estudando para acompanhar sua evolução.", recentSessions: "sessões recentes · aproveitamento por sessão", noSaved: "Você ainda não salvou nenhuma questão.", savedForReview: "questão salva para revisar", savedForReviewPlural: "questões salvas para revisar", wrongQuestions: "Questões Erradas", savedQuestions: "Questões Salvas", recentQuestions: "Últimas Feitas" },
 
     },
     es: {
@@ -137,9 +141,9 @@ const textos = {
         boasTitulo: "Bienvenido a SIMUNUS",
         boasSubtitulo: "Tu plataforma de estudio",
         boasBotao: "COMENZAR A ESTUDIAR",
-        materiasTitulo: "Selecciona la materia",
+        materiasTitulo: "Selecciona la Materia",
         materiasSubtitulo: "Elige la materia que deseas estudiar.",
-        fasesTitulo: "Selecciona la fase",
+        fasesTitulo: "Selecciona la Fase",
         fasesSubtitulo: "Elige la fase que deseas estudiar.",
         voltarInicio: "Volver al inicio",
         voltarMaterias: "Volver a las materias",
@@ -160,9 +164,9 @@ const textos = {
         descricao: "Descripción:",
         alvo: "Objetivo:",
         tipo: "Pregunta",
-        proxima: "Siguiente pregunta →",
-        final: "🏆 ¡Simulado finalizado!",
-        suaPontuacao: "Tu puntuación",
+        proxima: "Siguiente Pregunta →",
+        final: "🏆 ¡Simulado Finalizado!",
+        suaPontuacao: "Tu Puntuación",
         acertos: "Aciertos",
         erros: "Errores",
         aproveitamento: "Rendimiento",
@@ -172,40 +176,44 @@ const textos = {
         bomComeco: "Buen comienzo. Vale la pena repasar los puntos que fallaste.",
         continueEstudando: "Continúa estudiando. Repetir el simulado puede ayudarte a fijar el contenido.",
         configuracoes: "Configuraciones",
-        configuracoesSubtitulo: "Personaliza la apariencia de la aplicación.",
+        configuracoesSubtitulo: "Personaliza tu experiencia en la aplicación.",
         aparencia: "Apariencia",
         aparenciaDescricao: "Elige el modo de visualización.",
-        tamanhoFonte: "Tamaño de fuente",
+        tamanhoFonte: "Tamaño de Fuente",
         tamanhoFonteDescricao: "Ajusta la lectura a tu comodidad.",
         idiomaConfig: "Idioma",
         idiomaConfigDescricao: "Idioma actualmente seleccionado.",
-        fontePequena: "Pequeña", fonteNormal: "Normal", fonteGrande: "Grande", fonteMuitoGrande: "Muy grande",
-        modoClaro: "Modo claro", modoEscuro: "Modo oscuro", voltar: "Volver",
+        segurancaConta: "Seguridad de la Cuenta",
+        segurancaContaDescricao: "Gestiona la seguridad de tu cuenta y tus credenciales de acceso.",
+        redefinirSenha: "Restablecer Contraseña",
+        redefinirSenhaDescricao: "Cambia tu contraseña de acceso.",
+        fontePequena: "Pequeña", fonteNormal: "Normal", fonteGrande: "Grande", fonteMuitoGrande: "Muy Grande",
+        modoClaro: "Modo Claro", modoEscuro: "Modo Oscuro", voltar: "Volver",
         sair: "Salir",
         acessoSubtitulo: "Acceso a la plataforma de estudios",
-        rotuloEmailAcesso: "Correo electrónico",
+        rotuloEmailAcesso: "Correo Electrónico",
         placeholderEmailAcesso: "tu@correo.com",
         entrar: "Entrar",
         rotuloQuestao: "Pregunta",
         rotuloPontos: "Puntos",
         rotuloGrupo: "Grupo",
         alternativas: "Alternativas",
-        carregandoPergunta: "Cargando pregunta...",
-        suaPontuacao: "Tu puntuación",
+        carregandoPergunta: "Cargando Pregunta...",
+        suaPontuacao: "Tu Puntuación",
         desempenho: "Rendimiento",
-        suasMaterias: "Mis fases", criarMateria: "Crear nueva fase", minhasMaterias: "Resolver mis fases", favoritas: "Favoritas", gerenciarMaterias: "Gestionar fases",
-        suasFasesTitulo: "Mis fases", suasFasesSubtitulo: "Crea, organiza y estudia tus fases personalizadas.", voltarSuasFases: "← Volver", abrirListaSubtitulo: "Ve y abre las fases que has creado.", favoritosSubtitulo: "Accede rápidamente a tus fases favoritas.", gerenciarSubtitulo: "Edita, duplica o elimina tus fases.", criarSubtitulo: "Crea una nueva fase con tus propias preguntas.",
+        suasMaterias: "Mis Fases", criarMateria: "Crear nueva fase", minhasMaterias: "Resolver mis fases", favoritas: "Favoritas", gerenciarMaterias: "Gestionar Fases",
+        suasFasesTitulo: "Mis Fases", suasFasesSubtitulo: "Crea, organiza y estudia tus fases personalizadas.", voltarSuasFases: "← Volver", abrirListaSubtitulo: "Ve y abre las fases que has creado.", favoritosSubtitulo: "Accede rápidamente a tus fases favoritas.", gerenciarSubtitulo: "Edita, duplica o elimina tus fases.", criarSubtitulo: "Crea una nueva fase con tus propias preguntas.",
         personalizadas: "PERSONALIZADA", semMaterias: "Todavía no has creado ninguna fase.", criarPrimeiraMateria: "Crear mi primera fase",
         novaMateriaTitulo: "Crear nueva fase", editarMateriaTitulo: "Editar Fase", nomeMateria: "Nombre de la materia", descricaoMateria: "Descripción",
         temaMateria: "Tema/categoría", grupoMateria: "Grupo", grupoQuestao: "Grupo", dificuldade: "Dificultad",
         facil: "Fácil", normal: "Normal", dificil: "Difícil", adicionarQuestao: "Añadir pregunta", editar: "Editar", duplicar: "Duplicar", excluir: "Eliminar",
-        jogar: "Abrir", favorito: "Favorito", salvar: "Guardar fase", cancelar: "Cancelar", fechar: "Cerrar", questaoTitulo: "Pregunta",
-        enunciadoPT: "Enunciado", enunciadoES: "Enunciado (Español)", respostaPT: "Respuesta correcta (Português)", respostaES: "Respuesta correcta (Español)",
+        jogar: "Abrir", favorito: "Favorito", salvar: "Guardar Fase", cancelar: "Cancelar", fechar: "Cerrar", questaoTitulo: "Pregunta",
+        enunciadoPT: "Enunciado", enunciadoES: "Enunciado (Español)", respostaPT: "Respuesta Correcta (Português)", respostaES: "Respuesta Correcta (Español)",
         explicacaoPT: "Explicación (Português)", explicacaoES: "Explicación (Español)", alvoPT: "Objetivo", alvoES: "Objetivo (Español)",
         alternativasErradas: "Alternativas incorrectas", alternativasErradasES: "Alternativas incorrectas (Español)", alternativasErradasAjuda: "Completa cada opción en su propio campo. La cuarta opción es opcional.",
         confirmarExcluirMateria: "¿Eliminar esta fase? Sus preguntas también se eliminarán. Esta acción no se puede deshacer.",
         semQuestoes: "Añade al menos una pregunta.", camposObrigatorios: "Completa los campos obligatorios.",
-         dashboard: { title: "Continúa con tu estudio", subtitle: "Consulta tu progreso y retoma donde lo dejaste.", next: "SIGUIENTE PASO", performance: "Tu rendimiento", summary: "Resumen general", answered: "Preguntas respondidas", correct: "Aciertos", accuracy: "Rendimiento", subjects: "Materias estudiadas", review: "Modo revisión", reviewDescription: "Revisa preguntas importantes.", marked: "guardadas", saved: "guardadas", evolution: "Evolución", sessions: "Sesiones recientes", shareEvolution: "Compartir evolución", explore: "Explorar materias", reviewMarked: "Revisar guardadas", reviewMode: "Modo revisión", resume: "Continuar", choose: "Elegir materia", yourPhases: "Tus fases", startTitle: "Comienza tu primer estudio", startDescription: "Elige una materia para comenzar tu historial.", continueQuestion: "Pregunta", continueStudying: "Continúa estudiando para seguir tu evolución.", recentSessions: "sesiones recientes · rendimiento por sesión", noSaved: "Todavía no has guardado ninguna pregunta.", savedForReview: "pregunta guardada para revisar", savedForReviewPlural: "preguntas guardadas para revisar", wrongQuestions: "Preguntas incorrectas", savedQuestions: "Preguntas guardadas", recentQuestions: "Últimas realizadas" },
+         dashboard: { title: "Continúa con tu estudio", subtitle: "Consulta tu progreso y retoma donde lo dejaste.", next: "SIGUIENTE PASO", performance: "Tu Rendimiento", summary: "Resumen General", answered: "Preguntas Respondidas", correct: "Aciertos", accuracy: "Rendimiento", subjects: "Materias Estudiadas", review: "Modo Revisión", reviewDescription: "Revisa preguntas importantes.", marked: "guardadas", saved: "guardadas", evolution: "Evolución", sessions: "Sesiones Recientes", shareEvolution: "Compartir Evolución", explore: "Explorar Materias", reviewMarked: "Revisar Guardadas", reviewMode: "Modo Revisión", resume: "Continuar", choose: "Elegir Materia", yourPhases: "Tus Fases", startTitle: "Comienza tu primer estudio", startDescription: "Elige una materia para comenzar tu historial.", continueQuestion: "Pregunta", continueStudying: "Continúa estudiando para seguir tu evolución.", recentSessions: "sesiones recientes · rendimiento por sesión", noSaved: "Todavía no has guardado ninguna pregunta.", savedForReview: "pregunta guardada para revisar", savedForReviewPlural: "preguntas guardadas para revisar", wrongQuestions: "Preguntas Incorrectas", savedQuestions: "Preguntas Guardadas", recentQuestions: "Últimas Realizadas" },
 
     },
     en: {
@@ -251,13 +259,17 @@ const textos = {
         bomComeco: "Good start. It is worth reviewing the points you missed.",
         continueEstudando: "Keep studying. Repeating the quiz can help reinforce the material.",
         configuracoes: "Settings",
-        configuracoesSubtitulo: "Customize the appearance of the application.",
+        configuracoesSubtitulo: "Customize your experience in the app.",
         aparencia: "Appearance",
         aparenciaDescricao: "Choose the display mode.",
         tamanhoFonte: "Font size",
         tamanhoFonteDescricao: "Adjust the text size for comfortable reading.",
         idiomaConfig: "Language",
         idiomaConfigDescricao: "Currently selected language.",
+        segurancaConta: "Account Security",
+        segurancaContaDescricao: "Manage your account security and login credentials.",
+        redefinirSenha: "Reset Password",
+        redefinirSenhaDescricao: "Change your account password.",
         fontePequena: "Small", fonteNormal: "Normal", fonteGrande: "Large", fonteMuitoGrande: "Very large",
         modoClaro: "Light mode", modoEscuro: "Dark mode", voltar: "Back",
         sair: "Sign out",
@@ -283,7 +295,7 @@ const textos = {
         alternativasErradas: "Incorrect choices", alternativasErradasES: "Incorrect choices (Spanish)", alternativasErradasAjuda: "Enter each choice in its own field. The fourth choice is optional.",
         confirmarExcluirMateria: "Delete this phase? Its questions will also be removed. This action cannot be undone.",
         semQuestoes: "Add at least one question.", camposObrigatorios: "Complete the required fields.",
-         dashboard: { title: "Keep your study going", subtitle: "Track your progress and pick up where you left off.", next: "NEXT STEP", performance: "Your performance", summary: "Overview", answered: "Questions answered", correct: "Correct", accuracy: "Accuracy", subjects: "Subjects studied", review: "Review mode", reviewDescription: "Review important questions.", marked: "saved", saved: "saved", evolution: "Progress over time", sessions: "Recent sessions", shareEvolution: "Share progress", explore: "Explore subjects", reviewMarked: "Review saved", reviewMode: "Review mode", resume: "Continue", choose: "Choose subject", yourPhases: "Your Phases", startTitle: "Start your first study session", startDescription: "Choose a subject to start building your study history.", continueQuestion: "Question", continueStudying: "Keep studying to follow your progress.", recentSessions: "recent sessions · performance by session", noSaved: "You have not saved any questions yet.", savedForReview: "question saved for review", savedForReviewPlural: "questions saved for review", wrongQuestions: "Incorrect questions", savedQuestions: "Saved questions", recentQuestions: "Recently answered" },
+         dashboard: { title: "Keep your study going", subtitle: "Track your progress and pick up where you left off.", next: "NEXT STEP", performance: "Your Performance", summary: "Overview", answered: "Questions Answered", correct: "Correct", accuracy: "Accuracy", subjects: "Subjects Studied", review: "Review Mode", reviewDescription: "Review Important Questions.", marked: "saved", saved: "saved", evolution: "Progress Over Time", sessions: "Recent Sessions", shareEvolution: "Share Progress", explore: "Explore Subjects", reviewMarked: "Review Saved", reviewMode: "Review Mode", resume: "Continue", choose: "Choose Subject", yourPhases: "Your Phases", startTitle: "Start your first study session", startDescription: "Choose a subject to start building your study history.", continueQuestion: "Question", continueStudying: "Keep studying to follow your progress.", recentSessions: "recent sessions · performance by session", noSaved: "You have not saved any questions yet.", savedForReview: "question saved for review", savedForReviewPlural: "questions saved for review", wrongQuestions: "Incorrect questions", savedQuestions: "Saved questions", recentQuestions: "Recently answered" },
     }
 };
 
@@ -327,10 +339,28 @@ function authText(key) {
     const labels = {
         pt: {
             password: "Senha",
+            fullName: "Nome Completo",
+            fullNamePlaceholder: "Digite seu nome completo",
+            birthDate: "Data de Nascimento",
+            phone: "Telefone / WhatsApp",
+            country: "País",
+            countryPlaceholder: "Selecione seu país",
+            institution: "Universidade / Instituição",
+            institutionPlaceholder: "Digite sua universidade ou instituição",
+            optional: "(opcional)",
+            signupNameError: "Informe seu nome completo (3 a 150 caracteres).",
+            signupEmailError: "Informe um e-mail válido.",
+            signupPasswordError: "A senha deve ter ao menos 6 caracteres.",
+            signupBirthError: "Informe uma data válida, entre 1900 e hoje.",
+            signupPhoneError: "Informe um número válido para o código selecionado.",
+            phoneHint: "Selecione o código do país do seu telefone.",
+            dialLabel: "Código internacional do telefone",
+            signupInstitutionError: "O nome da instituição deve ter até 200 caracteres.",
+
             passwordPlaceholder: "Senha",
-            createAccount: "Criar conta",
+            createAccount: "Criar Conta",
             createSubtitle: "Crie sua conta SIMUNUS",
-            confirmPassword: "Confirmar senha",
+            confirmPassword: "Confirmar Senha",
             confirmPasswordPlaceholder: "Confirmar senha",
             haveAccount: "Já tenho uma conta - Entrar",
             differentPasswords: "As senhas não coincidem.",
@@ -338,6 +368,18 @@ function authText(key) {
             pendingTitle: "Solicitar acesso",
             pendingText: "Sua conta foi criada! Entre em contato com nossa equipe pelo WhatsApp para solicitar a ativação do acesso aos simulados.",
             pendingNote: "Nossa equipe orientará você sobre os planos e as formas de pagamento.",
+            couponLabel: "Possui um cupom de desconto?",
+            couponPlaceholder: "Digite seu cupom",
+            couponDescription: "Digite seu código antes de entrar em contato com o suporte.",
+            couponHelper: "O desconto será aplicado após a validação do cupom.",
+            couponValidate: "Validar",
+            couponValidating: "Validando cupom...",
+            couponValid: "Cupom válido: {code}.",
+            couponInvalid: "Cupom inválido ou indisponível.",
+            couponLimited: "Limite de tentativas atingido. Tente novamente mais tarde.",
+            couponError: "Não foi possível validar o cupom. Tente novamente.",
+            couponWhatsapp: "Cupom informado: {code}",
+            couponOpening: "Abrindo WhatsApp...",
             supportMessage: "Olá! Criei minha conta no Simunus e gostaria de solicitar a ativação do meu acesso. Poderiam me orientar sobre os planos disponíveis e as formas de pagamento?",
             accessErrorText: "Não foi possível verificar seu acesso aos simulados. Tente novamente.",
             renewalTitle: "Renovar plano",
@@ -353,10 +395,28 @@ function authText(key) {
         },
         es: {
             password: "Contraseña",
+            fullName: "Nombre Completo",
+            fullNamePlaceholder: "Escribe tu nombre completo",
+            birthDate: "Fecha de Nacimiento",
+            phone: "Teléfono / WhatsApp",
+            country: "País",
+            countryPlaceholder: "Selecciona tu país",
+            institution: "Universidad / Institución",
+            institutionPlaceholder: "Escribe tu universidad o institución",
+            optional: "(opcional)",
+            signupNameError: "Introduce tu nombre completo (3 a 150 caracteres).",
+            signupEmailError: "Introduce un correo válido.",
+            signupPasswordError: "La contraseña debe tener al menos 6 caracteres.",
+            signupBirthError: "Introduce una fecha válida, entre 1900 y hoy.",
+            signupPhoneError: "Introduce un número válido para el código seleccionado.",
+            phoneHint: "Selecciona el código de país de tu teléfono.",
+            dialLabel: "Código internacional del teléfono",
+            signupInstitutionError: "El nombre de la institución debe tener hasta 200 caracteres.",
+
             passwordPlaceholder: "Contraseña",
             createAccount: "Crear cuenta",
             createSubtitle: "Crea tu cuenta SIMUNUS",
-            confirmPassword: "Confirmar contraseña",
+            confirmPassword: "Confirmar Contraseña",
             confirmPasswordPlaceholder: "Confirmar contraseña",
             haveAccount: "Ya tengo una cuenta - Entrar",
             differentPasswords: "Las contraseñas no coinciden.",
@@ -364,6 +424,18 @@ function authText(key) {
             pendingTitle: "Solicitar acceso",
             pendingText: "¡Tu cuenta fue creada! Comunícate con nuestro equipo por WhatsApp para solicitar la activación del acceso a los simulacros.",
             pendingNote: "Nuestro equipo te orientará sobre los planes y los métodos de pago.",
+            couponLabel: "¿Tienes un cupón de descuento?",
+            couponPlaceholder: "Ingresa tu cupón",
+            couponDescription: "Ingresa tu código antes de contactar con soporte.",
+            couponHelper: "El descuento se aplicará después de validar el cupón.",
+            couponValidate: "Validar",
+            couponValidating: "Validando cupón...",
+            couponValid: "Cupón válido: {code}.",
+            couponInvalid: "Cupón no válido o no disponible.",
+            couponLimited: "Demasiados intentos. Inténtalo más tarde.",
+            couponError: "No fue posible validar el cupón. Inténtalo de nuevo.",
+            couponWhatsapp: "Cupón indicado: {code}",
+            couponOpening: "Abriendo WhatsApp...",
             supportMessage: "¡Hola! Creé mi cuenta en Simunus y me gustaría solicitar la activación de mi acceso. ¿Podrían informarme sobre los planes disponibles y los métodos de pago?",
             accessErrorText: "No fue posible verificar tu acceso a los simulados. Inténtalo nuevamente.",
             renewalTitle: "Renovar plan",
@@ -379,10 +451,28 @@ function authText(key) {
         },
         en: {
             password: "Password",
+            fullName: "Full Name",
+            fullNamePlaceholder: "Enter your full name",
+            birthDate: "Date of Birth",
+            phone: "Phone / WhatsApp",
+            country: "Country",
+            countryPlaceholder: "Select your country",
+            institution: "University / Institution",
+            institutionPlaceholder: "Enter your university or institution",
+            optional: "(optional)",
+            signupNameError: "Enter your full name (3–150 characters).",
+            signupEmailError: "Enter a valid email address.",
+            signupPasswordError: "Password must contain at least 6 characters.",
+            signupBirthError: "Enter a valid date between 1900 and today.",
+            signupPhoneError: "Enter a valid number for the selected calling code.",
+            phoneHint: "Select your phone number’s country calling code.",
+            dialLabel: "Phone country calling code",
+            signupInstitutionError: "Institution name must be at most 200 characters.",
+
             passwordPlaceholder: "Password",
             createAccount: "Create account",
             createSubtitle: "Create your SIMUNUS account",
-            confirmPassword: "Confirm password",
+            confirmPassword: "Confirm Password",
             confirmPasswordPlaceholder: "Confirm password",
             haveAccount: "I already have an account - Sign in",
             differentPasswords: "Passwords do not match.",
@@ -390,6 +480,18 @@ function authText(key) {
             pendingTitle: "Request access",
             pendingText: "Your account has been created! Contact our team on WhatsApp to request access to the practice exams.",
             pendingNote: "Our team will guide you through the available plans and payment methods.",
+            couponLabel: "Have a discount code?",
+            couponPlaceholder: "Enter your coupon",
+            couponDescription: "Enter your code before contacting support.",
+            couponHelper: "The discount will be applied after the coupon is validated.",
+            couponValidate: "Validate",
+            couponValidating: "Validating coupon...",
+            couponValid: "Valid coupon: {code}.",
+            couponInvalid: "Invalid or unavailable coupon.",
+            couponLimited: "Too many attempts. Try again later.",
+            couponError: "Could not validate the coupon. Please try again.",
+            couponWhatsapp: "Coupon code: {code}",
+            couponOpening: "Opening WhatsApp...",
             supportMessage: "Hello! I created my Simunus account and would like to request access activation. Could you tell me about the available plans and payment methods?",
             accessErrorText: "We could not verify your access to simulations. Please try again.",
             renewalTitle: "Renew plan",
@@ -594,13 +696,19 @@ async function carregarDashboardEstudo() {
 }
 
 async function atualizarDashboard() {
+    const shareActions = $("compartilhar-evolucao")?.closest(".dashboard-share-actions");
+    if (shareActions) shareActions.hidden = true;
+    $("botao-continuar").hidden = true;
     const dashboardSupabase = await carregarDashboardEstudo();
 
     const labels = t().dashboard;
     $("titulo-dashboard").textContent = labels.title;
     $("titulo-continuar").closest(".dashboard-continue").querySelector(".dashboard-kicker").textContent = labels.next;
     $("titulo-resumo").textContent = labels.performance;
-    $("titulo-resumo").nextElementSibling.textContent = labels.summary;
+
+$("titulo-resumo").closest(".dashboard-section-head").querySelector(".dashboard-summary-label").textContent = labels.summary;
+$("dashboard-suas-fases")
+    .querySelector("span").textContent = labels.yourPhases;
     $("stat-respondidas").previousElementSibling.textContent = labels.answered;
     $("stat-acertos").previousElementSibling.textContent = labels.correct;
     $("stat-aproveitamento").previousElementSibling.textContent = labels.accuracy;
@@ -608,9 +716,11 @@ async function atualizarDashboard() {
     $("titulo-revisao").textContent = labels.review;
     $("descricao-revisao").textContent = labels.reviewDescription;
     $("titulo-evolucao").textContent = labels.evolution;
-    $("titulo-evolucao").nextElementSibling.textContent = labels.sessions;
-    $("dashboard-explorar-materias").textContent = labels.explore;
-    $("dashboard-suas-fases").textContent = labels.yourPhases;
+    $("titulo-evolucao").closest(".dashboard-section-head").querySelector(".dashboard-sessions-label").textContent = labels.sessions;
+    $("dashboard-explorar-materias")
+    .querySelector("span").textContent = labels.explore;
+$("dashboard-suas-fases")
+    .querySelector("span").textContent = labels.yourPhases;
     $("dashboard-voltar-boas").setAttribute("aria-label", ui().back);
     $("dashboard-voltar-boas").title = ui().back;
     $("compartilhar-evolucao").querySelector("span").textContent = labels.shareEvolution;
@@ -625,12 +735,16 @@ async function atualizarDashboard() {
     $("stat-aproveitamento").textContent = `${Number.isInteger(accuracy) ? accuracy : accuracy.toFixed(2)}%`;
     $("stat-materias").textContent = studiedAreas;
 
-    await atualizarContinuarSupabase();
+    // A RPC de última atividade pode retornar um ponteiro antigo mesmo
+    // quando o Dashboard não possui questões efetivamente respondidas.
+    // Nesse caso, mostrar o estado inicial em vez de sugerir continuação.
+    await atualizarContinuarSupabase(answered > 0);
 
     try { await atualizarContagensRevisaoSupabase(); }
     catch (erro) { console.warn("[Revisão] Contagens indisponíveis", erro); }
 
     const history = $("dashboard-historico");
+    if (shareActions) shareActions.hidden = answered <= 0;
     const sessions = Array.isArray(dashboardSupabase?.evolution)
         ? dashboardSupabase.evolution
             .slice()
@@ -1356,6 +1470,10 @@ function atualizarConfiguracoes() {
     $("descricao-fonte").textContent = t().tamanhoFonteDescricao;
     $("rotulo-idioma-config").textContent = t().idiomaConfig;
     $("descricao-idioma-config").textContent = t().idiomaConfigDescricao;
+    $("rotulo-seguranca-conta").textContent = t().segurancaConta;
+    $("descricao-seguranca-conta").textContent = t().segurancaContaDescricao;
+    $("rotulo-redefinir-senha").textContent = t().redefinirSenha;
+    $("descricao-redefinir-senha").textContent = t().redefinirSenhaDescricao;
     document.querySelectorAll(".botao-idioma-config").forEach((botao) => {
         const ativo = botao.dataset.configIdioma === estado.idioma;
         botao.classList.toggle("ativo", ativo);
@@ -1363,7 +1481,7 @@ function atualizarConfiguracoes() {
     });
     const slider = $("slider-fonte");
     if (slider) slider.value = fonteAtual().toFixed(2);
-    $("sair-conta").textContent = t().sair;
+    $("sair-conta-texto").textContent = t().sair;
 }
 
 function atualizarSaudacaoAcesso() {
@@ -1396,11 +1514,42 @@ function atualizarTextosDeAcesso() {
     $("alternar-tema-acesso")?.setAttribute("aria-label", temaAtual() === "escuro" ? t().modoClaro : t().modoEscuro);
     $("titulo-cadastro").textContent = authText("createAccount");
     $("subtitulo-cadastro").textContent = authText("createSubtitle");
-    $("rotulo-email-cadastro").textContent = t().rotuloEmailAcesso;
+    const signupFields = [
+        ["rotulo-nome-cadastro", "fullName", "nome-cadastro", "fullNamePlaceholder"],
+        ["rotulo-nascimento-cadastro", "birthDate", null, null],
+        ["rotulo-telefone-cadastro", "phone", "telefone-cadastro", null],
+        ["rotulo-pais-cadastro", "country", null, null],
+        ["rotulo-instituicao-cadastro", "institution", "instituicao-cadastro", "institutionPlaceholder"]
+    ];
+    for (const [labelId, labelKey, inputId, placeholderKey] of signupFields) {
+        const label = $(labelId)?.querySelector(".cadastro-label-texto");
+        if (label) label.textContent = authText(labelKey);
+        if (inputId && placeholderKey) $(inputId).placeholder = authText(placeholderKey);
+    }
+    document.querySelectorAll("#tela-cadastro .cadastro-opcional").forEach(el => el.textContent = " " + authText("optional"));
+    $("ajuda-telefone-cadastro").textContent = authText("phoneHint");
+    $("ddi-cadastro").setAttribute("aria-label", authText("dialLabel"));
+    $("ddi-cadastro").title = authText("dialLabel");
+    const campoPais = $("pais-cadastro");
+    if (campoPais) {
+        campoPais.options[0].textContent = authText("countryPlaceholder");
+        if (typeof Intl.DisplayNames === "function") {
+            const locale = {pt:"pt-BR",en:"en",es:"es"}[estado.idioma] || "pt-BR";
+            const names = new Intl.DisplayNames([locale], {type:"region"});
+            for (let i = 1; i < campoPais.options.length; i++) {
+                const option = campoPais.options[i];
+                try { option.textContent = names.of(option.value) || option.textContent; } catch (_) {}
+            }
+            const options = Array.from(campoPais.options).slice(1).sort((a,b) => a.textContent.localeCompare(b.textContent,locale));
+            for (const option of options) campoPais.appendChild(option);
+        }
+    }
+
+    $("rotulo-email-cadastro").querySelector(".cadastro-label-texto").textContent = t().rotuloEmailAcesso;
     $("email-cadastro").placeholder = t().placeholderEmailAcesso;
-    $("rotulo-senha-cadastro").textContent = authText("password");
+    $("rotulo-senha-cadastro").querySelector(".cadastro-label-texto").textContent = authText("password");
     $("senha-cadastro").placeholder = authText("passwordPlaceholder");
-    $("rotulo-confirmar-senha-cadastro").textContent = authText("confirmPassword");
+    $("rotulo-confirmar-senha-cadastro").querySelector(".cadastro-label-texto").textContent = authText("confirmPassword");
     $("confirmar-senha-cadastro").placeholder = authText("confirmPasswordPlaceholder");
     $("botao-criar-conta").textContent = authText("createAccount");
     $("voltar-login-cadastro").textContent = authText("haveAccount");
@@ -1408,6 +1557,16 @@ function atualizarTextosDeAcesso() {
     $("titulo-acesso-pendente").textContent = authText("pendingTitle");
     $("texto-acesso-pendente").textContent = authText("pendingText");
     $("observacao-acesso-pendente").textContent = authText("pendingNote");
+    $("rotulo-cupom-contato").textContent = authText("couponLabel");
+    $("descricao-cupom-contato").textContent = authText("couponDescription");
+    $("texto-ajuda-cupom-contato").textContent = authText("couponHelper");
+    $("codigo-cupom-contato").placeholder = authText("couponPlaceholder");
+    $("validar-cupom-contato").textContent = authText("couponValidate");
+    if (couponContactState.validCode) {
+        setCouponContactFeedback(authText("couponValid").replace("{code}", couponContactState.validCode), "success");
+    } else if (couponContactState.feedbackKey) {
+        setCouponContactFeedback(authText(couponContactState.feedbackKey), couponContactState.feedbackKind);
+    }
     $("texto-botao-whatsapp-suporte").textContent = authText("support");
     $("botao-whatsapp-suporte").removeAttribute("href");
     $("titulo-renovar-plano").textContent = authText("renewalTitle");
@@ -1508,7 +1667,7 @@ function atualizarEstadoBotaoEntrar() {
     const senha = $("senha-acesso").value;
     const botao = $("botao-entrar");
 
-    botao.disabled = acessoEmAndamento || !email || !senha;
+    botao.disabled = acessoEmAndamento || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !senha;
 }
 
 async function processarAcesso(event) {
@@ -1564,6 +1723,9 @@ function abrirCadastro() {
     $("email-cadastro").value = $("email-acesso").value;
     $("senha-cadastro").value = "";
     $("confirmar-senha-cadastro").value = "";
+    ["nome-cadastro", "nascimento-cadastro", "telefone-cadastro", "pais-cadastro", "instituicao-cadastro"].forEach(id => $(id).value = "");
+    ddiAlteradoManualmente = false;
+    atualizarDdiCadastro("BR");
     mostrarTela(telaCadastro);
 }
 
@@ -1572,54 +1734,173 @@ function voltarParaLoginCadastro() {
     mostrarTela(telaAcesso);
 }
 
+// DDIs apresentados separadamente do país de residência. Não são usados para autorização.
+const CODIGOS_TELEFONE = [
+    ["BR", "+55", "31 99999-9999", "Brazil"], ["BO", "+591", "71234567", "Bolivia"],
+    ["US", "+1", "202 555 0123", "United States"], ["CA", "+1", "416 555 0123", "Canada"],
+    ["AR", "+54", "11 2345 6789", "Argentina"], ["CL", "+56", "9 1234 5678", "Chile"],
+    ["CO", "+57", "300 123 4567", "Colombia"], ["PE", "+51", "912 345 678", "Peru"],
+    ["PY", "+595", "981 123456", "Paraguay"], ["UY", "+598", "91 234 567", "Uruguay"],
+    ["EC", "+593", "99 123 4567", "Ecuador"], ["VE", "+58", "412 1234567", "Venezuela"],
+    ["MX", "+52", "55 1234 5678", "Mexico"], ["CR", "+506", "8888 8888", "Costa Rica"],
+    ["PA", "+507", "6123 4567", "Panama"], ["GT", "+502", "5123 4567", "Guatemala"],
+    ["CU", "+53", "5 1234567", "Cuba"], ["DO", "+1", "809 555 0123", "Dominican Republic"],
+    ["PT", "+351", "912 345 678", "Portugal"], ["ES", "+34", "612 345 678", "Spain"],
+    ["FR", "+33", "6 12 34 56 78", "France"], ["DE", "+49", "151 23456789", "Germany"],
+    ["IT", "+39", "312 345 6789", "Italy"], ["GB", "+44", "7700 900123", "United Kingdom"],
+    ["IE", "+353", "85 123 4567", "Ireland"], ["CH", "+41", "79 123 45 67", "Switzerland"],
+    ["NL", "+31", "6 12345678", "Netherlands"], ["BE", "+32", "470 12 34 56", "Belgium"],
+    ["AT", "+43", "664 1234567", "Austria"], ["SE", "+46", "70 123 45 67", "Sweden"],
+    ["NO", "+47", "412 34 567", "Norway"], ["DK", "+45", "20 12 34 56", "Denmark"],
+    ["FI", "+358", "40 1234567", "Finland"], ["PL", "+48", "512 345 678", "Poland"],
+    ["TR", "+90", "532 123 4567", "Turkey"], ["RU", "+7", "912 345 67 89", "Russia"],
+    ["UA", "+380", "67 123 4567", "Ukraine"], ["IN", "+91", "98765 43210", "India"],
+    ["CN", "+86", "138 0013 8000", "China"], ["JP", "+81", "90 1234 5678", "Japan"],
+    ["KR", "+82", "10 1234 5678", "South Korea"], ["AU", "+61", "412 345 678", "Australia"],
+    ["NZ", "+64", "21 123 4567", "New Zealand"], ["ZA", "+27", "82 123 4567", "South Africa"],
+    ["AO", "+244", "923 123 456", "Angola"], ["MZ", "+258", "84 123 4567", "Mozambique"],
+    ["CV", "+238", "991 12 34", "Cape Verde"], ["NG", "+234", "803 123 4567", "Nigeria"],
+    ["EG", "+20", "100 123 4567", "Egypt"], ["MA", "+212", "612 345678", "Morocco"],
+    ["IL", "+972", "50 123 4567", "Israel"], ["AE", "+971", "50 123 4567", "United Arab Emirates"],
+    ["SA", "+966", "50 123 4567", "Saudi Arabia"], ["ID", "+62", "812 3456 7890", "Indonesia"],
+    ["PH", "+63", "917 123 4567", "Philippines"], ["TH", "+66", "81 234 5678", "Thailand"],
+    ["SG", "+65", "8123 4567", "Singapore"]
+];
+let ddiAlteradoManualmente = false;
+function bandeiraTelefone(pais) {
+    return /^[A-Z]{2}$/.test(pais) ? String.fromCodePoint(...Array.from(pais, letra => letra.charCodeAt(0) + 127397)) : "🌐";
+}
+function atualizarDdiCadastro(pais, manual = false) {
+    const selector = $("ddi-cadastro");
+    if (!selector) return;
+    if (manual) ddiAlteradoManualmente = true;
+    const registro = CODIGOS_TELEFONE.find(item => item[0] === pais);
+    if (!registro || !Array.from(selector.options).some(item => item.value === pais)) return;
+    selector.value = pais;
+    $("telefone-cadastro").placeholder = registro[2];
+}
+function iniciarTelefoneCadastro() {
+    const selector = $("ddi-cadastro");
+    if (!selector) return;
+    selector.replaceChildren();
+    const locale = {pt:"pt-BR",en:"en",es:"es"}[estado.idioma] || "pt-BR";
+    const regionNames = typeof Intl.DisplayNames === "function" ? new Intl.DisplayNames([locale], {type:"region"}) : null;
+    const sorted = [...CODIGOS_TELEFONE].sort((a,b) => {
+        const name = x => { try {return regionNames?.of(x[0]) || x[3];} catch (_) {return x[3];} };
+        return name(a).localeCompare(name(b),locale);
+    });
+    for (const item of sorted) {
+        const option = document.createElement("option");
+        option.value = item[0];
+        option.textContent = `${bandeiraTelefone(item[0])} ${item[1]}`;
+        try {option.title = regionNames?.of(item[0]) || item[3];} catch (_) {option.title = item[3];}
+        selector.appendChild(option);
+    }
+    const other = document.createElement("option");
+    other.value = "OTHER";
+    other.textContent = "🌐 +…";
+    selector.appendChild(other);
+    atualizarDdiCadastro(selector.value || "BR");
+    selector.value = "BR";
+    $("telefone-cadastro").placeholder = CODIGOS_TELEFONE[0][2];
+    selector.addEventListener("change", () => {
+        ddiAlteradoManualmente = true;
+        if (selector.value === "OTHER") {
+            $("telefone-cadastro").placeholder = "+12345678900";
+        } else atualizarDdiCadastro(selector.value, true);
+    });
+    $("pais-cadastro").addEventListener("change", () => {
+        if (!ddiAlteradoManualmente) atualizarDdiCadastro($("pais-cadastro").value);
+    });
+}
+
+function normalizarTelefoneCadastro(value) {
+    const raw = value.trim();
+    if (!raw) return "";
+    const digits = raw.replace(/[\s().-]/g, "");
+    const ddi = $("ddi-cadastro").value;
+    if (ddi === "OTHER") {
+        return /^\+[1-9][0-9]{7,14}$/.test(digits) ? digits : null;
+    }
+    const entry = CODIGOS_TELEFONE.find(item => item[0] === ddi);
+    if (!entry || !/^[0-9]+$/.test(digits)) return null;
+    // É permitido digitar tanto o número nacional como um número internacional.
+    let national = digits;
+    if (national.startsWith(entry[1])) national = national.slice(entry[1].length);
+    else if (national.startsWith("+")) return null;
+    // Brasil: exige DDD + nove dígitos (celular) ou oito (fixo), sem 0 de operadora.
+    if (ddi === "BR" && !/^[1-9][0-9][2-9][0-9]{7,8}$/.test(national)) return null;
+    // Bolívia: números nacionais com oito dígitos.
+    if (ddi === "BO" && !/^[2-9][0-9]{7}$/.test(national)) return null;
+    // EUA/Canadá: NPA-NXX-XXXX, com 10 dígitos.
+    if (["US", "CA"].includes(ddi) && !/^[2-9][0-9]{2}[2-9][0-9]{6}$/.test(national)) return null;
+    if (ddi === "PT" && !/^[29][0-9]{8}$/.test(national)) return null;
+    const formatted = entry[1] + national;
+    return /^\+[1-9][0-9]{7,14}$/.test(formatted) ? formatted : null;
+}
+
+function validarCadastro() {
+    const name = $("nome-cadastro").value.trim().replace(/\s+/g, " ");
+    const email = $("email-cadastro").value.trim();
+    const password = $("senha-cadastro").value;
+    const confirmation = $("confirmar-senha-cadastro").value;
+    const birth = $("nascimento-cadastro").value;
+    const phone = normalizarTelefoneCadastro($("telefone-cadastro").value);
+    const country = $("pais-cadastro").value;
+    const institution = $("instituicao-cadastro").value.trim();
+    let error = null;
+    if (name.length < 3 || name.length > 150) error = ["nome-cadastro", "signupNameError"];
+    else if (!Auth.isValidEmail(email)) error = ["email-cadastro", "signupEmailError"];
+    else if (password.length < 6 || password.length > 128) error = ["senha-cadastro", "signupPasswordError"];
+    else if (password !== confirmation) error = ["confirmar-senha-cadastro", "differentPasswords"];
+    else if (birth && (birth < "1900-01-01" || birth > [new Date().getFullYear(), String(new Date().getMonth() + 1).padStart(2, "0"), String(new Date().getDate()).padStart(2, "0")].join("-") || Number.isNaN(Date.parse(birth)) || new Date(birth).toISOString().slice(0,10) !== birth)) error = ["nascimento-cadastro", "signupBirthError"];
+    else if (phone === null) error = ["telefone-cadastro", "signupPhoneError"];
+    else if (institution.length > 200) error = ["instituicao-cadastro", "signupInstitutionError"];
+    if (error) return { ok: false, field: error[0], key: error[1], message: authText(error[1]) };
+    return { ok: true, email, password, profile: { full_name: name, birth_date: birth || null, phone_e164: phone || null, country_code: country || null, institution_name: institution || null } };
+}
+
 async function processarCadastro(event) {
     event.preventDefault();
-    const campo = $("email-cadastro");
-    const campoSenha = $("senha-cadastro");
-    const campoConfirmacao = $("confirmar-senha-cadastro");
-    const botao = $("botao-criar-conta");
-    const botaoVoltar = $("voltar-login-cadastro");
-    const email = campo.value;
-    const senha = campoSenha.value;
-    const confirmarSenha = campoConfirmacao.value;
     limparMensagensCadastro();
-
-    if (senha !== confirmarSenha) {
-        $("mensagem-confirmar-senha").dataset.authKey = "differentPasswords";
-        $("mensagem-confirmar-senha").textContent = authText("differentPasswords");
-        campoConfirmacao.setAttribute("aria-invalid", "true");
-        campoConfirmacao.focus();
+    $("formulario-cadastro").querySelectorAll("[aria-invalid]").forEach(el => el.removeAttribute("aria-invalid"));
+    const validation = validarCadastro();
+    if (!validation.ok) {
+        const target = $(validation.field);
+        target?.setAttribute("aria-invalid", "true");
+        $(validation.field === "confirmar-senha-cadastro" ? "mensagem-confirmar-senha" : "mensagem-cadastro").dataset.authKey = validation.key;
+        if (validation.field === "confirmar-senha-cadastro") $("mensagem-confirmar-senha").textContent = validation.message;
+        else { $("mensagem-cadastro").textContent = validation.message; $("mensagem-cadastro").dataset.tipo = "erro"; }
+        target?.focus();
         return;
     }
-
-    botao.disabled = true;
-    botaoVoltar.disabled = true;
-    campo.disabled = true;
-    campoSenha.disabled = true;
-    campoConfirmacao.disabled = true;
-
-    const resultado = await Auth.signUp(email, senha);
-    if (resultado.ok) {
-        await Auth.logout();
-        $("email-acesso").value = Auth.normalizeEmail(email);
-        $("senha-acesso").value = "";
-        mostrarTela(telaAcesso);
-        $("mensagem-acesso").textContent = resultado.needsConfirmation ? textoMensagemDeAcesso(resultado.code) : authText("accountCreated");
-        $("mensagem-acesso").dataset.tipo = "sucesso";
-        campo.value = "";
-        campoSenha.value = "";
-        campoConfirmacao.value = "";
-    } else {
-        $("mensagem-cadastro").dataset.backendCode = resultado.code;
+    const form = $("formulario-cadastro");
+    const controls = Array.from(form.querySelectorAll("input, select, button"));
+    controls.forEach(element => element.disabled = true);
+    try {
+        const resultado = await Auth.signUp(validation.email, validation.password, validation.profile);
+        if (resultado.ok) {
+            await Auth.logout();
+            $("email-acesso").value = Auth.normalizeEmail(validation.email);
+            $("senha-acesso").value = "";
+            form.reset();
+            ddiAlteradoManualmente = false;
+            atualizarDdiCadastro("BR");
+            mostrarTela(telaAcesso);
+            $("mensagem-acesso").textContent = resultado.needsConfirmation ? textoMensagemDeAcesso(resultado.code) : authText("accountCreated");
+            $("mensagem-acesso").dataset.tipo = "sucesso";
+        } else {
+            $("mensagem-cadastro").dataset.backendCode = resultado.code;
         $("mensagem-cadastro").textContent = textoMensagemDeAcesso(resultado.code);
+            $("mensagem-cadastro").dataset.tipo = "erro";
+        }
+    } catch (error) {
+        console.error("Falha inesperada no cadastro:", error);
+        $("mensagem-cadastro").textContent = textoMensagemDeAcesso("load-error");
         $("mensagem-cadastro").dataset.tipo = "erro";
+    } finally {
+        controls.forEach(element => element.disabled = false);
     }
-
-    botao.disabled = false;
-    botaoVoltar.disabled = false;
-    campo.disabled = false;
-    campoSenha.disabled = false;
-    campoConfirmacao.disabled = false;
 }
 
 async function inicializarAplicacaoComAcesso() {
@@ -1695,6 +1976,11 @@ function atualizarIdiomaCentral(language) {
     const selection = active && [active.selectionStart, active.selectionEnd];
     aplicarIdiomaInterface(language);
     if ($("mensagem-acesso").dataset.languageCode) mostrarMensagemDeAcesso($("mensagem-acesso").dataset.languageCode);
+    if (!$("modal-alterar-senha").hidden) {
+        const labels = changePasswordLabels[estado.idioma] || changePasswordLabels.en;
+        for (const [id,key] of Object.entries({"senha-modal-titulo":"title","senha-modal-descricao":"description","label-nova-senha":"newPassword","label-confirmar-nova-senha":"confirm","cancelar-alterar-senha":"cancel","salvar-alterar-senha":"save"})) $(id).textContent=labels[key];
+        $("fechar-modal-senha").setAttribute("aria-label",labels.close);
+    }
     for (const id of ["mensagem-cadastro", "mensagem-confirmar-senha"]) {
         const element = $(id);
         if (element.textContent && element.dataset.authKey) element.textContent = authText(element.dataset.authKey);
@@ -1768,6 +2054,7 @@ async function apresentarAcessoSemPermissao() {
     $("titulo-acesso-pendente").textContent = blocked ? authText("blockedTitle") : authText("pendingTitle");
     $("texto-acesso-pendente").textContent = blocked ? authText("blockedText") : authText("pendingText");
     $("botao-whatsapp-suporte").hidden = blocked;
+    $("cupom-contato").hidden = blocked;
     $("observacao-acesso-pendente").hidden = blocked;
     $("verificar-acesso").hidden = blocked;
     $("mensagem-verificacao-acesso").textContent = "";
@@ -1805,6 +2092,103 @@ async function verificarAcessoNovamente(buttonId, messageId) {
         button.disabled = false;
     }
 }
+
+// Cupom opcional: o servidor é a única fonte de validade. Não guarda dados no storage.
+const couponContactState = { validCode: null, feedbackKey: null, feedbackKind: "" };
+const couponInput = $("codigo-cupom-contato");
+const couponCheckButton = $("validar-cupom-contato");
+const supportWhatsappButton = $("botao-whatsapp-suporte");
+let couponValidationBusy = false;
+
+function setCouponContactFeedback(message, kind = "") {
+    const feedback = $("feedback-cupom-contato");
+    feedback.textContent = message;
+    feedback.dataset.kind = kind;
+}
+
+function resetCouponContactValidation() {
+    couponContactState.validCode = null;
+    couponContactState.feedbackKey = null;
+    couponContactState.feedbackKind = "";
+    setCouponContactFeedback("");
+}
+
+couponInput.addEventListener("input", resetCouponContactValidation);
+
+async function checkCouponForContact() {
+    const code = couponInput.value.trim().toUpperCase();
+    couponContactState.validCode = null;
+    if (!code) {
+        resetCouponContactValidation();
+        return null;
+    }
+    if (couponValidationBusy) return null;
+    couponValidationBusy = true;
+    couponCheckButton.disabled = true;
+    setCouponContactFeedback(authText("couponValidating"));
+    try {
+        const result = await window.SimunusApi.validateCouponForContact(code);
+        // O usuário pode alterar o código enquanto a requisição está em andamento.
+        if (couponInput.value.trim().toUpperCase() !== code) return null;
+        if (result?.valid === true && typeof result.code === "string") {
+            couponContactState.validCode = result.code;
+            couponContactState.feedbackKey = "couponValid";
+            couponContactState.feedbackKind = "success";
+            setCouponContactFeedback(authText("couponValid").replace("{code}", result.code), "success");
+            return result.code;
+        }
+        couponContactState.feedbackKey = result?.rate_limited ? "couponLimited" : "couponInvalid";
+        couponContactState.feedbackKind = "error";
+        setCouponContactFeedback(authText(couponContactState.feedbackKey), "error");
+        return null;
+    } catch (error) {
+        console.error("Erro ao validar cupom para contato:", error);
+        couponContactState.feedbackKey = "couponError";
+        couponContactState.feedbackKind = "error";
+        setCouponContactFeedback(authText("couponError"), "error");
+        return null;
+    } finally {
+        couponValidationBusy = false;
+        couponCheckButton.disabled = false;
+    }
+}
+
+couponCheckButton.addEventListener("click", () => { void checkCouponForContact(); });
+couponInput.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        void checkCouponForContact();
+    }
+});
+
+supportWhatsappButton.addEventListener("click", async event => {
+    // Preserve the public distribution: no private support destination is bundled.
+    if (!supportWhatsappButton.getAttribute("href")) { event.preventDefault(); return; }
+    // Sem cupom, mantém o fluxo original do link.
+    if (!couponInput.value.trim()) return;
+    event.preventDefault();
+    if (couponValidationBusy) return;
+    // Abrir a aba durante o clique evita bloqueadores de pop-up após a RPC async.
+    const tab = window.open("about:blank", "_blank");
+    supportWhatsappButton.setAttribute("aria-busy", "true");
+    try {
+        // A validação anterior não é garantia: consultar novamente ao enviar.
+        const validatedCode = await checkCouponForContact();
+        let message = authText("supportMessage");
+        if (validatedCode) {
+            message += "\n\n" + authText("couponWhatsapp").replace("{code}", validatedCode);
+        }
+        const url = new URL(supportWhatsappButton.href);
+        url.searchParams.set("text", message);
+        if (tab && !tab.closed) {
+            tab.location.replace(url);
+        } else {
+            window.location.assign(url);
+        }
+    } finally {
+        supportWhatsappButton.removeAttribute("aria-busy");
+    }
+});
 
 $("verificar-acesso").addEventListener("click", () => verificarAcessoNovamente("verificar-acesso", "mensagem-verificacao-acesso"));
 $("verificar-renovacao").addEventListener("click", () => verificarAcessoNovamente("verificar-renovacao", "mensagem-verificacao-renovacao"));
@@ -2467,10 +2851,20 @@ function proximaFaseAcademica(info) {
     const index = rows.findIndex(row => String(row.topic_id) === String(info.topicId));
     return index >= 0 ? rows[index + 1] || null : null;
 }
-async function atualizarContinuarSupabase() {
+async function atualizarContinuarSupabase(hasAnsweredQuestions = false) {
     const button = $("botao-continuar");
     const cardContinuar = button?.closest(".dashboard-continue");
     if (!button || !cardContinuar) return;
+    const labels = t().dashboard;
+
+    // Limpar o estado anterior em toda atualização, inclusive erros na RPC.
+    button.hidden = true;
+    button.dataset.continue = "";
+    $("titulo-continuar").textContent = labels.startTitle;
+    $("descricao-continuar").textContent = labels.startDescription;
+
+    if (!hasAnsweredQuestions) return;
+
     let info;
     try { info = await lerAtividadeSupabase(); }
     catch (error) {
@@ -2478,14 +2872,13 @@ async function atualizarContinuarSupabase() {
         button.hidden = true;
         return;
     }
-    button.hidden = !info?.attemptId;
     if (!info?.attemptId) return;
-    const labels = t().dashboard;
+    button.hidden = false;
     $("titulo-continuar").textContent = info.title || labels.resume;
     $("descricao-continuar").textContent = info.completed
         ? `${info.description || ""} · ${labels.resume}`
         : `${info.description || ""} · ${labels.continueQuestion} ${Number(info.nextIndex || 0) + 1}`;
-    button.textContent = labels.resume;
+    button.querySelector("span").textContent = labels.resume;
     button.dataset.continue = "supabase";
 }
 async function continuarAtividadeSupabase() {
@@ -5273,11 +5666,101 @@ $("esqueci-senha-acesso").addEventListener("click", () => {
     location.assign(target.href);
 });
 $("alternar-modo-acesso").addEventListener("click", abrirCadastro);
+iniciarTelefoneCadastro();
 $("formulario-cadastro").addEventListener("submit", processarCadastro);
 $("voltar-login-cadastro").addEventListener("click", voltarParaLoginCadastro);
 $("confirmar-senha-cadastro").addEventListener("input", () => {
     $("mensagem-confirmar-senha").textContent = "";
     $("confirmar-senha-cadastro").removeAttribute("aria-invalid");
+});
+
+// Segurança: alteração de senha do usuário autenticado, sem novo sign-in.
+const changePasswordLabels = {
+    pt: { title:"Redefinir senha", description:"Escolha uma nova senha para sua conta.", newPassword:"Nova senha", confirm:"Confirmar nova senha", cancel:"Cancelar", save:"Salvar nova senha", short:"A senha deve ter entre 8 e 128 caracteres.", mismatch:"As senhas não coincidem.", session:"Sua sessão expirou. Entre novamente.", same:"Escolha uma senha diferente da atual.", reauth:"Sua conta exige uma nova confirmação de identidade antes de alterar a senha.", rate:"Muitas tentativas. Aguarde e tente novamente.", error:"Não foi possível alterar sua senha. Tente novamente.", success:"Senha alterada com sucesso.", close:"Fechar" },
+    es: { title:"Restablecer contraseña", description:"Elige una nueva contraseña para tu cuenta.", newPassword:"Nueva contraseña", confirm:"Confirmar nueva contraseña", cancel:"Cancelar", save:"Guardar nueva contraseña", short:"La contraseña debe tener entre 8 y 128 caracteres.", mismatch:"Las contraseñas no coinciden.", session:"Tu sesión ha caducado. Inicia sesión nuevamente.", same:"Elige una contraseña diferente de la actual.", reauth:"Tu cuenta requiere otra verificación de identidad antes de cambiar la contraseña.", rate:"Demasiados intentos. Espera e inténtalo de nuevo.", error:"No se pudo cambiar tu contraseña. Inténtalo de nuevo.", success:"Contraseña actualizada correctamente.", close:"Cerrar" },
+    en: { title:"Reset password", description:"Choose a new password for your account.", newPassword:"New password", confirm:"Confirm new password", cancel:"Cancel", save:"Save new password", short:"Password must be between 8 and 128 characters.", mismatch:"Passwords do not match.", session:"Your session has expired. Sign in again.", same:"Choose a password different from your current password.", reauth:"Your account requires identity verification before changing the password.", rate:"Too many attempts. Wait and try again.", error:"Could not update your password. Try again.", success:"Password updated successfully.", close:"Close" }
+};
+window.SimunusI18n.register("passwordChange", changePasswordLabels);
+function redefinirVisibilidadeModalSenha() {
+    document.dispatchEvent(new CustomEvent("simunus:reset-password-visibility", {
+        detail: { container: $("modal-alterar-senha") }
+    }));
+}
+let senhaModalEmEnvio = false;
+let senhaModalReturnFocus = null;
+function fecharModalAlterarSenha() {
+    if (senhaModalEmEnvio) return;
+    const modal = $("modal-alterar-senha");
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    $("form-alterar-senha").reset();
+    redefinirVisibilidadeModalSenha();
+    $("senha-modal-feedback").textContent = "";
+    senhaModalReturnFocus?.focus();
+}
+$("redefinir-senha-config").addEventListener("click", () => {
+    const l = changePasswordLabels[estado.idioma] || changePasswordLabels.pt;
+    senhaModalReturnFocus = document.activeElement;
+    $("senha-modal-titulo").textContent = l.title;
+    $("senha-modal-descricao").textContent = l.description;
+    $("label-nova-senha").textContent = l.newPassword;
+    $("label-confirmar-nova-senha").textContent = l.confirm;
+    $("cancelar-alterar-senha").textContent = l.cancel;
+    $("salvar-alterar-senha").textContent = l.save;
+    $("fechar-modal-senha").setAttribute("aria-label", l.close);
+    $("senha-modal-feedback").textContent = "";
+    $("senha-modal-feedback").dataset.kind = "";
+    $("form-alterar-senha").reset();
+    redefinirVisibilidadeModalSenha();
+    $("modal-alterar-senha").hidden = false;
+    $("modal-alterar-senha").setAttribute("aria-hidden", "false");
+    $("nova-senha-config").focus();
+});
+$("fechar-modal-senha").addEventListener("click", fecharModalAlterarSenha);
+$("cancelar-alterar-senha").addEventListener("click", fecharModalAlterarSenha);
+$("modal-alterar-senha").addEventListener("click", event => {
+    if (event.target === $("modal-alterar-senha")) fecharModalAlterarSenha();
+});
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !$("modal-alterar-senha").hidden) {
+        event.preventDefault();
+        fecharModalAlterarSenha();
+    }
+    if (event.key === "Tab" && !$("modal-alterar-senha").hidden) {
+        const nodes = [...$("modal-alterar-senha").querySelectorAll('button:not(:disabled),input:not(:disabled)')];
+        const first = nodes[0], last = nodes[nodes.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+});
+$("form-alterar-senha").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (senhaModalEmEnvio) return;
+    const l = changePasswordLabels[estado.idioma] || changePasswordLabels.pt;
+    const pass = $("nova-senha-config").value;
+    const confirm = $("confirmar-nova-senha-config").value;
+    const feedback = $("senha-modal-feedback");
+    const show = (message, kind="error") => { feedback.textContent=message; feedback.dataset.kind=kind; };
+    if (pass.length < 8 || pass.length > 128) return show(l.short);
+    if (pass !== confirm) return show(l.mismatch);
+    senhaModalEmEnvio = true;
+    $("salvar-alterar-senha").disabled = true;
+    $("cancelar-alterar-senha").disabled = true;
+    try {
+        const result = await Auth.changePassword(pass);
+        if (result.ok) {
+            $("form-alterar-senha").reset();
+            redefinirVisibilidadeModalSenha();
+            show(l.success, "success");
+        } else {
+            const err = {"weak-password":l.short,"no-session":l.session,"same-password":l.same,"reauth-required":l.reauth,"rate-limited":l.rate};
+            show(err[result.code] || l.error);
+        }
+    } finally {
+        senhaModalEmEnvio = false;
+        $("salvar-alterar-senha").disabled = false;
+        $("cancelar-alterar-senha").disabled = false;
+    }
 });
 
 $("sair-conta").addEventListener("click", async () => {

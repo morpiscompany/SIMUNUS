@@ -28,6 +28,7 @@ const files = [
   "Simunus/style.css",
   "Simunus/supabase.js"
 ];
+function build() {
 if (fs.existsSync(target)) throw new Error('Use a clean checkout: .site already exists');
 for (const name of files) {
   const source = path.join(root, name);
@@ -38,3 +39,7 @@ for (const name of files) {
 }
 fs.writeFileSync(path.join(target, '.nojekyll'), '');
 console.log('Verified public artifact: ' + (files.length + 1) + ' explicitly allowed files');
+
+}
+module.exports = { files, root, target };
+if (require.main === module) build();

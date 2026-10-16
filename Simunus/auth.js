@@ -60,7 +60,7 @@
         return sessionResult(data.session);
     }
 
-    async function signUp(email, password) {
+    async function signUp(email, password, profile = {}) {
         currentEmail = null;
         const normalized = normalizeEmail(email);
         if (!normalized) return { ok: false, code: "empty" };
@@ -69,7 +69,17 @@
         if (password.length < 6) return { ok: false, code: "weak-password" };
         if (!client) return { ok: false, code: "load-error" };
 
-        const { data, error } = await client.auth.signUp({ email: normalized, password });
+        const { data, error } = await client.auth.signUp({
+            email: normalized,
+            password,
+            options: { data: {
+                full_name: profile.full_name,
+                birth_date: profile.birth_date || null,
+                phone_e164: profile.phone_e164 || null,
+                country_code: profile.country_code || null,
+                institution_name: profile.institution_name || null
+            } }
+        });
         if (error) {
             console.error("Falha ao criar conta Supabase:", error);
             return { ok: false, code: mapAuthError(error) };
@@ -107,9 +117,29 @@
         if (error) console.warn("Não foi possível encerrar a sessão Supabase.", error);
     }
 
+    async function changePassword(password) {
+        if (!client) return { ok: false, code: "load-error" };
+        if (typeof password !== "string" || password.length < 8 || password.length > 128) {
+            return { ok: false, code: "weak-password" };
+        }
+        const { data: userData, error: sessionError } = await client.auth.getUser();
+        if (sessionError || !userData?.user) return { ok: false, code: "no-session" };
+        const { error } = await client.auth.updateUser({ password });
+        if (error) {
+            // Don't print credentials or password payloads to the console.
+            const msg = error.message || "";
+            if (/same password|different from the old/i.test(msg)) return { ok: false, code: "same-password" };
+            if (/nonce|reauthenticat/i.test(msg)) return { ok: false, code: "reauth-required" };
+            if (/weak|password|length/i.test(msg)) return { ok: false, code: "weak-password" };
+            if (/rate|too many/i.test(msg)) return { ok: false, code: "rate-limited" };
+            return { ok: false, code: "load-error" };
+        }
+        return { ok: true };
+    }
+
     function getCurrentEmail() {
         return currentEmail;
     }
 
-    window.Auth = Object.freeze({ authenticate, signUp, initializeSession, logout: clearSession, normalizeEmail, isValidEmail, getCurrentEmail });
+    window.Auth = Object.freeze({ authenticate, signUp, initializeSession, logout: clearSession, normalizeEmail, isValidEmail, getCurrentEmail, changePassword });
 })();

@@ -134,6 +134,9 @@
 
         errorCode,
 
+        validateCouponForContact: (code) =>
+            rpc("validate_coupon_for_contact", { requested_code: code }),
+
         getMyAccessStatus: () => rpc("get_my_access_status"),
 
         getMyPreferredLanguage: () => rpc("get_my_preferred_language"),

@@ -533,8 +533,67 @@ body {
 }
 .configuracao-item:hover { border-color: var(--border-strong); }
 .configuracao-texto { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.configuracao-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+.configuracao-icone {
+    flex: 0 0 auto;
+    color: var(--primary);
+}
 .configuracao-texto strong { font-size: calc(16px * var(--font-scale)); }
 .configuracao-texto span { color: var(--text-secondary); font-size: calc(13px * var(--font-scale)); line-height: 1.4; overflow-wrap: anywhere; }
+.configuracao-seguranca {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+}
+.configuracao-opcao-seguranca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 0 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: default;
+    text-align: left;
+    font: inherit;
+}
+.configuracao-opcao-icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--primary);
+    background: var(--surface);
+}
+.configuracao-opcao-texto {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+.configuracao-opcao-texto strong { font-size: calc(14px * var(--font-scale)); }
+.configuracao-opcao-texto span {
+    color: var(--text-secondary);
+    font-size: calc(13px * var(--font-scale));
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+.configuracao-opcao-seta {
+    flex: 0 0 auto;
+    color: var(--text-secondary);
+}
 .botao-config-opcao {
     flex: 0 0 auto;
     min-width: 118px;
@@ -806,7 +865,13 @@ button { min-width: 0; }
     text-align: center;
     overflow-wrap: anywhere;
 }
-.btn-sair { margin-top: 10px; }
+.btn-sair {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
 
 html[data-tema="escuro"] .formulario-acesso input {
     background: var(--surface-soft);
@@ -1405,7 +1470,7 @@ body.custom-modal-aberto { overflow: hidden; }
     display: inline-block;
     flex: 0 0 auto;
     vertical-align: middle;
-    margin-right: 7px;
+    margin-right: 6px;
 }
 
 
@@ -1897,6 +1962,52 @@ body.share-card-aberto { overflow:hidden; }
     gap: 10px;
     flex: 0 0 auto;
 }
+
+
+/* DASHBOARD — Hierarquia visual dos botões */
+
+.dashboard-continue-actions .btn-continuar-destaque {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.dashboard-continue-actions .btn-continuar-destaque:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.dashboard-continue-actions .btn-outline-dashboard {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: auto;
+    min-height: 44px;
+    margin: 0;
+    padding: 11px 16px;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    font-weight: 600;
+}
+
+.dashboard-continue-actions .btn-outline-dashboard:hover {
+    background: var(--surface-hover);
+    border-color: var(--primary);
+}
+
+.dashboard-continue-actions button svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
 
 .dashboard-continue-actions .btn-proxima {
     width: auto;
@@ -2508,8 +2619,142 @@ body.custom-sort-active,body.custom-sort-active * { user-select:none !important;
 #custom-screen-list .custom-library-menu button svg { width:17px; height:17px; flex:none; }
 #custom-screen-list .custom-library-menu button span { flex:1; }
 
-/* Contato omitido na distribuicao publica. */
-#botao-whatsapp-suporte:not([href]), #botao-whatsapp-renovacao:not([href]) { display: none !important; }
+/* SIMUNUS Dashboard — títulos, divisores e hierarquia de ações. */
+#tela-dashboard .dashboard-section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 12px;
+}
+#tela-dashboard .dashboard-section-head h2 { flex: 0 1 auto; min-width: 0; }
+#tela-dashboard .dashboard-section-line {
+    flex: 1 1 28px;
+    min-width: 12px;
+    height: 0;
+    margin: 0;
+    border: 0;
+    border-top: 1px solid var(--border-strong);
+}
+#tela-dashboard .dashboard-section-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    color: var(--text-secondary);
+    font-size: 11px;
+    white-space: nowrap;
+}
+#tela-dashboard .dashboard-section-badge svg { flex: 0 0 auto; }
+#tela-dashboard .dashboard-section-head > .btn-compartilhar-evolucao {
+    flex: 0 0 auto;
+    margin-left: auto !important;
+}
+#tela-dashboard .dashboard-continue-actions > button {
+    min-height: 44px;
+    border-radius: 10px;
+    padding: 11px 16px;
+    white-space: nowrap;
+}
+#tela-dashboard .dashboard-continue-actions .btn-continuar-destaque:not(:disabled) {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+#tela-dashboard .dashboard-continue-actions .btn-continuar-destaque:not(:disabled):hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+#tela-dashboard .dashboard-continue-actions .btn-outline-dashboard {
+    border-color: var(--border-strong);
+    background: transparent;
+    color: var(--text);
+}
+#tela-dashboard .dashboard-continue-actions .btn-outline-dashboard:focus-visible,
+#tela-dashboard .dashboard-continue-actions .btn-continuar-destaque:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+#tela-dashboard .dashboard-continue-actions > button:active:not(:disabled) { transform: translateY(0); }
+@media (max-width: 620px) {
+    #tela-dashboard .dashboard-continue-actions > button { width: 100%; }
+    #tela-dashboard .dashboard-section-head { gap: 9px; align-items: center; }
+    #tela-dashboard .dashboard-section-head > .btn-compartilhar-evolucao {
+        margin-left: auto !important;
+    }
+}
+
+/* Dashboard: cabeçalhos estáveis e sem colisões (correção pontual). */
+#tela-dashboard .dashboard-section-head {
+    display: grid;
+    grid-template-columns: max-content minmax(24px, 1fr) max-content;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 12px;
+}
+#tela-dashboard .dashboard-section-head > h2 { grid-column: 1; min-width: 0; }
+#tela-dashboard .dashboard-section-head > .dashboard-section-line {
+    display: block;
+    grid-column: 2;
+    width: 100%;
+    min-width: 0;
+    height: 0;
+    border: 0;
+    border-top: 1px solid var(--border-strong);
+    margin: 0;
+    padding: 0;
+    opacity: .85;
+}
+#tela-dashboard .dashboard-section-head > .dashboard-section-badge {
+    grid-column: 3;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    text-align: right;
+}
+#tela-dashboard .dashboard-section-head > .dashboard-section-badge svg { display: block; flex-shrink: 0; }
+#tela-dashboard .dashboard-section-head > .btn-compartilhar-evolucao {
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: end;
+    margin: 0 !important;
+    width: max-content !important;
+    max-width: 100%;
+    height: auto;
+    min-height: 36px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    gap: 7px;
+}
+#tela-dashboard .btn-compartilhar-evolucao > span { white-space: nowrap; }
+#tela-dashboard .btn-compartilhar-evolucao > svg { flex-shrink: 0; }
+#tela-dashboard #botao-continuar > svg { fill: currentColor; stroke: none; flex-shrink: 0; }
+@media (max-width: 420px) {
+    #tela-dashboard .dashboard-section-head { column-gap: 8px; }
+    #tela-dashboard .dashboard-section-head h2 { font-size: clamp(14px, 4.1vw, 17px); }
+    #tela-dashboard .dashboard-section-head > .dashboard-section-badge { font-size: 10px; gap: 4px; }
+    #tela-dashboard .dashboard-section-head > .dashboard-section-badge svg { width: 14px; height: 14px; }
+}
+
+/* Dashboard: compartilhar abaixo do gráfico, centralizado; cabeçalho igual ao desempenho. */
+#tela-dashboard .dashboard-share-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+}
+#tela-dashboard .dashboard-share-actions > .btn-compartilhar-evolucao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 1 auto;
+    width: max-content !important;
+    max-width: 100%;
+    margin: 0 !important;
+    white-space: nowrap;
+}
 
 /* Refinamento pontual do login; cadastro e demais telas permanecem intactos. */
 #tela-acesso .saudacao-acesso { margin: 4px 0 5px; font-size: calc(21px * var(--font-scale)); font-weight: 700; color: var(--text); }
@@ -2526,3 +2771,244 @@ body.custom-sort-active,body.custom-sort-active * { user-select:none !important;
 #tela-acesso .rodape-acesso { margin: 18px 0 0; text-align: center; color: var(--text-secondary); font-size: calc(12px * var(--font-scale)); line-height: 1.5; }
 #tela-acesso .mensagem-acesso:empty { min-height: 0; margin: 0; }
 
+/* Refinamento visual exclusivo da tela Solicitar acesso. */
+#tela-acesso-pendente .acesso-pendente-aviso {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: min(100%, 490px);
+    padding: 14px 17px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface-soft);
+    margin-bottom: 0;
+    text-align: left;
+}
+#tela-acesso-pendente .acesso-aviso-icone {
+    flex: 0 0 22px;
+    color: var(--primary);
+}
+#tela-acesso-pendente .observacao-acesso-pendente {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+#tela-acesso-pendente .acesso-pendente-divisor {
+    width: min(100%, 490px);
+    height: 1px;
+    flex: 0 0 1px;
+    margin: 23px 0 20px;
+    background: var(--border);
+}
+#tela-acesso-pendente .cupom-contato {
+    width: min(100%, 490px);
+    margin: 0 0 18px;
+    text-align: left;
+}
+#tela-acesso-pendente .cupom-contato-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+#tela-acesso-pendente .cupom-contato-icone {
+    flex: 0 0 23px;
+    margin-top: 2px;
+    color: var(--primary);
+}
+#tela-acesso-pendente .cupom-contato-cabecalho-texto { min-width: 0; }
+#tela-acesso-pendente .cupom-contato label {
+    display: block;
+    margin: 0 0 4px;
+    font-size: calc(15px * var(--font-scale));
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text);
+}
+#tela-acesso-pendente .cupom-contato-descricao {
+    margin: 0;
+    font-size: calc(13px * var(--font-scale));
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+#tela-acesso-pendente .cupom-contato-linha {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+#tela-acesso-pendente .cupom-contato-linha input,
+#tela-acesso-pendente .cupom-contato-linha button {
+    box-sizing: border-box;
+    height: 48px;
+    min-height: 48px;
+    margin: 0;
+    border-radius: 10px;
+    font: inherit;
+}
+#tela-acesso-pendente .cupom-contato-linha input {
+    flex: 1 1 auto;
+    width: 0;
+    min-width: 0;
+    border: 1px solid var(--border);
+    background: var(--surface-soft);
+    color: var(--text);
+    padding: 0 14px;
+    text-transform: uppercase;
+}
+#tela-acesso-pendente .cupom-contato-linha input::placeholder {
+    text-transform: none;
+    color: var(--text-secondary);
+    opacity: .8;
+}
+#tela-acesso-pendente .cupom-contato-linha input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+#tela-acesso-pendente .cupom-contato-linha button {
+    flex: 0 0 auto;
+    min-width: 106px;
+    width: auto;
+    padding: 0 16px;
+    font-weight: 600;
+}
+#tela-acesso-pendente .cupom-contato-ajuda {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin: 9px 0 0;
+    font-size: calc(12px * var(--font-scale));
+    line-height: 1.45;
+    color: var(--text-secondary);
+}
+#tela-acesso-pendente .cupom-contato-ajuda svg {
+    flex: 0 0 15px;
+    margin-top: 1px;
+}
+#feedback-cupom-contato { min-height: 0; margin: 8px 0 0; font-size: calc(13px * var(--font-scale)); color: var(--text-secondary); }
+#feedback-cupom-contato:empty { display: none; }
+#feedback-cupom-contato[data-kind="success"] { color: #188657; }
+#feedback-cupom-contato[data-kind="error"] { color: #bd4444; }
+@media (max-width: 380px) {
+    #tela-acesso-pendente .cupom-contato-linha button { min-width: 86px; padding-inline: 10px; }
+    #tela-acesso-pendente .cupom-contato-linha { gap: 8px; }
+    #tela-acesso-pendente .cupom-contato-cabecalho { gap: 9px; }
+}
+.cupom-contato[hidden] { display: none !important; }
+
+/* Segurança da conta — janela de alteração de senha */
+.senha-modal-backdrop { position:fixed; inset:0; z-index:2147483001; display:flex; align-items:center; justify-content:center; padding:16px; background:rgba(7,17,31,.7); backdrop-filter:blur(5px); }
+.senha-modal-backdrop[hidden] { display:none !important; }
+.senha-modal { width:min(450px,100%); max-height:90dvh; overflow:auto; padding:24px; border:1px solid var(--border); border-radius:18px; background:var(--surface); color:var(--text); box-shadow:0 25px 65px rgba(0,0,0,.3); }
+.senha-modal-cabecalho { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:22px; }
+.senha-modal-cabecalho h2 { margin:0 0 8px; font-size:1.35rem; }
+.senha-modal-cabecalho p { margin:0; color:var(--text-secondary); font-size:.9rem; line-height:1.5; }
+.senha-modal-fechar { border:0; background:transparent; color:var(--text); cursor:pointer; font-size:28px; line-height:1; }
+#form-alterar-senha { display:flex; flex-direction:column; gap:9px; }
+#form-alterar-senha label { font-weight:600; font-size:.9rem; }
+#form-alterar-senha input { width:100%; min-height:48px; padding:12px 14px; border:1px solid var(--border); border-radius:10px; background:var(--surface-soft); color:var(--text); font:inherit; box-sizing:border-box; margin-bottom:7px; }
+#form-alterar-senha input:focus-visible { outline:2px solid #4b95eb; outline-offset:2px; }
+.senha-modal-feedback { margin:4px 0 0; min-height:1.2em; font-size:.89rem; line-height:1.45; color:var(--text-secondary); }
+.senha-modal-feedback[data-kind="error"] { color:#ed7777; }
+.senha-modal-feedback[data-kind="success"] { color:#34bd8a; }
+.senha-modal-acoes { display:flex; gap:10px; margin-top:10px; }
+.senha-modal-acoes > button { flex:1; min-width:0; width:auto; margin:0; }
+.senha-modal-acoes button:disabled { opacity:.6; cursor:wait; }
+@media(max-width:430px) { .senha-modal{padding:18px;} .senha-modal-acoes{flex-direction:column-reverse;} }
+
+/* O Dashboard não exibe compartilhamento quando não há progresso registrado. */
+#tela-dashboard .dashboard-share-actions[hidden] { display: none !important; }
+
+
+/* CORREÇÃO — Centralizar ícones dos botões de voltar */
+
+.navegacao-voltar-superior .lucide,
+.btn-voltar-dashboard .lucide,
+.btn-voltar-fases .lucide {
+    margin: 0;
+    padding: 0;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   CADASTRO SIMUNUS — layout aprovado (2026-10)
+   ============================================================ */
+#tela-cadastro { padding: clamp(26px, 4vw, 46px) clamp(18px, 5vw, 55px) clamp(32px, 5vw, 55px); }
+#tela-cadastro .acesso-conteudo { width: min(950px, 100%); max-width: 100%; }
+#tela-cadastro .logo-simunus-acesso { max-width: min(480px, 90%); width: 100%; height: auto; }
+#tela-cadastro #subtitulo-cadastro { margin-top: 16px; margin-bottom: 0; }
+#tela-cadastro .formulario-cadastro-simunus { margin-top: clamp(32px, 5vw, 55px); gap: 0; }
+#tela-cadastro .cadastro-campo { min-width: 0; margin-bottom: 25px; }
+#tela-cadastro .cadastro-campo label { display: block; margin: 0 0 10px; font-size: calc(15px * var(--font-scale)); font-weight: 700; }
+#tela-cadastro .cadastro-obrigatorio { color: #fb727c; }
+#tela-cadastro .cadastro-opcional { font-weight: 400; color: var(--text-secondary); }
+#tela-cadastro .cadastro-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+#tela-cadastro .cadastro-input-wrap { position: relative; min-width: 0; }
+#tela-cadastro .cadastro-input-wrap .cadastro-icone { position: absolute; left: 17px; top: 50%; transform: translateY(-50%); width: 21px; height: 21px; color: var(--text-secondary); pointer-events: none; }
+#tela-cadastro .cadastro-input-wrap > input,
+#tela-cadastro .cadastro-input-wrap > select { display: block; width: 100%; min-width: 0; height: 57px; padding: 12px 14px 12px 55px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-soft); color: var(--text); font: inherit; font-size: calc(14px * var(--font-scale)); box-sizing: border-box; }
+#tela-cadastro .cadastro-input-wrap > input[type="password"] { padding-right: 49px; }
+#tela-cadastro .cadastro-input-wrap > select { padding-right: 30px; cursor: pointer; }
+#tela-cadastro .cadastro-input-wrap > input:focus-visible,
+#tela-cadastro .cadastro-input-wrap > select:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+#tela-cadastro .cadastro-input-wrap > input[aria-invalid="true"] { border-color: #f7767a; }
+#tela-cadastro .cadastro-input-wrap > input[type="date"] { color-scheme: dark; }
+[data-theme="light"] #tela-cadastro .cadastro-input-wrap > input[type="date"] { color-scheme: light; }
+#tela-cadastro .cadastro-input-wrap > input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: .8; }
+#tela-cadastro .cadastro-input-wrap > input::placeholder { color: var(--text-secondary); opacity: .85; }
+#tela-cadastro .cadastro-input-wrap .alternar-visibilidade-senha { right: 10px; }
+#tela-cadastro .mensagem-campo:empty,
+#tela-cadastro .mensagem-acesso:empty { display: none; }
+#tela-cadastro #botao-criar-conta { margin-top: 4px; min-height: 53px; border-radius: 11px; }
+#tela-cadastro #voltar-login-cadastro { width: 100%; min-height: 50px; margin-top: 18px; border-radius: 11px; }
+@media (max-width: 650px) {
+    #tela-cadastro { padding: 64px 17px 28px; }
+    #tela-cadastro .cadastro-grid { grid-template-columns: minmax(0,1fr); gap: 0; }
+    #tela-cadastro .cadastro-campo { margin-bottom: 19px; }
+    #tela-cadastro .formulario-cadastro-simunus { margin-top: 26px; }
+    #tela-cadastro .cadastro-input-wrap > input,
+    #tela-cadastro .cadastro-input-wrap > select { height: 52px; }
+}
+
+/* Cadastro: seletor telefônico internacional e seta única do país. */
+#tela-cadastro .cadastro-telefone-internacional {
+  display: flex; align-items: center; width: 100%; min-width: 0; height: 57px;
+  background: var(--surface-soft); border: 1px solid var(--border); border-radius: 12px;
+  box-sizing: border-box; overflow: hidden;
+}
+#tela-cadastro .cadastro-telefone-internacional:focus-within { outline: 2px solid var(--focus); outline-offset: 1px; }
+#tela-cadastro .cadastro-telefone-internacional:has(input[aria-invalid="true"]) { border-color: #f7767a; }
+#tela-cadastro .cadastro-ddi-wrap { flex: 0 0 auto; position: relative; width: 102px; max-width: 102px; }
+#tela-cadastro #ddi-cadastro {
+  appearance: none; -webkit-appearance: none; width: 100px; height: 55px;
+  border: 0; background: transparent; color: var(--text); font: inherit;
+  font-size: calc(14px * var(--font-scale)); cursor: pointer;
+  padding: 0 24px 0 10px; outline: none;
+}
+#tela-cadastro .cadastro-ddi-seta { position: absolute; width: 15px; height: 15px; right: 6px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; }
+#tela-cadastro .cadastro-telefone-divisor { flex: 0 0 1px; height: 20px; background: var(--border); }
+#tela-cadastro .cadastro-telefone-icone { flex: 0 0 18px; width: 18px; height: 18px; margin: 0 10px 0 10px; color: var(--text-secondary); }
+#tela-cadastro #telefone-cadastro {
+  flex: 1 1 auto; width: 0; min-width: 0; height: 55px; padding: 0 12px 0 0;
+  border: 0; outline: none; background: transparent; color: var(--text);
+  font: inherit; font-size: calc(14px * var(--font-scale));
+}
+#tela-cadastro #telefone-cadastro::placeholder { color: var(--text-secondary); opacity: .85; }
+#tela-cadastro .cadastro-telefone-ajuda { margin: 6px 0 0; font-size: calc(11px * var(--font-scale)); color: var(--text-secondary); line-height: 1.35; }
+#tela-cadastro #pais-cadastro { appearance: none; -webkit-appearance: none; padding-right: 46px; }
+#tela-cadastro .cadastro-pais-seta { position: absolute; width: 18px; height: 18px; right: 17px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-secondary); }
+@media (max-width: 650px) { #tela-cadastro .cadastro-telefone-internacional {height: 52px;} #tela-cadastro #ddi-cadastro,#tela-cadastro #telefone-cadastro {height: 50px;} }
+
+/* Visibilidade da senha — campos da janela de redefinição. */
+#form-alterar-senha .senha-modal-input-wrap { position: relative; width: 100%; }
+#form-alterar-senha .senha-modal-input-wrap input { padding-right: 54px; }
+#form-alterar-senha .senha-modal-input-wrap .alternar-visibilidade-senha {
+    top: calc((48px + 0px) / 2); right: 9px; transform: translateY(-50%);
+}
+#form-alterar-senha .senha-modal-input-wrap input { margin-bottom: 7px; }
+#form-alterar-senha .senha-modal-input-wrap .alternar-visibilidade-senha { top: calc(50% - 3.5px); }

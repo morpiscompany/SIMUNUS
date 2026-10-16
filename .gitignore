@@ -6,7 +6,6 @@
 *.key
 *.p12
 *.pfx
-*.sql
 *.dump
 *.backup
 *.log
@@ -44,3 +43,5 @@ coverage/
 .venv/
 .site/
 screenshots/
+supabase/.temp/
+supabase/.branches/

@@ -18,7 +18,7 @@
         button.setAttribute("aria-label", text);
         button.title = text;
         const icon = button.querySelector(".icone-visibilidade-senha");
-        if (icon) icon.innerHTML = visible ? EYE : EYE_OFF;
+        if (icon) icon.innerHTML = visible ? EYE_OFF : EYE;
     }
 
     document.addEventListener("click", function (event) {
@@ -33,6 +33,17 @@
         render(button, input);
         input.focus({ preventScroll: true });
         try { if (start !== null && end !== null) input.setSelectionRange(start, end); } catch (_) {}
+    });
+
+    // Senhas limpas em formulários devem voltar ao estado oculto.
+    document.addEventListener("simunus:reset-password-visibility", function (event) {
+        const container = event.detail?.container || document;
+        container.querySelectorAll(".alternar-visibilidade-senha").forEach(function (button) {
+            const input = document.getElementById(button.dataset.passwordTarget);
+            if (!input) return;
+            input.type = "password";
+            render(button, input);
+        });
     });
 
     document.querySelectorAll(".alternar-visibilidade-senha").forEach(function (button) {
