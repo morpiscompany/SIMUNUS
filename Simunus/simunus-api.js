@@ -62,6 +62,7 @@
 
     function friendlyMessage(error, language = currentLanguage()) {
         const message = error?.message || String(error || "");
+        if (message === "CONTENT_TRANSLATION_UNAVAILABLE") return window.SimunusI18n.t("common", "contentMissing");
         const known = errorMessages[message];
 
         if (known) {

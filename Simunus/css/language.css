@@ -1,0 +1,10 @@
+.language-control { position:absolute; top:15px; right:15px; z-index:40; }
+.language-control > .botao-tema { position:static; }
+.language-menu { position:absolute; right:0; top:calc(100% + 8px); width:220px; max-width:calc(100vw - 56px); padding:6px; border:1px solid var(--border); border-radius:12px; background:var(--surface); box-shadow:var(--shadow); text-align:left; }
+.language-menu[hidden] { display:none !important; }
+.language-menu button { display:block; width:100%; min-height:44px; padding:10px 12px; border:0; border-radius:7px; color:var(--text); background:transparent; font:inherit; font-size:14px; text-align:left; cursor:pointer; }
+.language-menu button[aria-checked="true"] { background:var(--surface-soft); font-weight:700; box-shadow:inset 3px 0 var(--primary); }
+.language-menu button:hover { background:var(--surface-hover); }
+.language-menu button:focus-visible, .language-control > button:focus-visible { outline:2px solid var(--primary); outline-offset:2px; }
+.content-language-notice { margin:8px 0; color:var(--text-secondary); font-size:12px; line-height:1.5; }
+@media(max-width:600px) { .language-control { top:10px; right:10px; } }

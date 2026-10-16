@@ -39,4 +39,10 @@
         const input = document.getElementById(button.dataset.passwordTarget);
         if (input) render(button, input);
     });
+    window.addEventListener("simunus:language", () => {
+        document.querySelectorAll(".alternar-visibilidade-senha").forEach(button => {
+            const input = document.getElementById(button.dataset.passwordTarget);
+            if (input) render(button, input);
+        });
+    });
 })();

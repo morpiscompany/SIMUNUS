@@ -71,12 +71,11 @@
     const $ = id => document.getElementById(id);
     const callback = window.SimunusRecoveryCallback || {};
     delete window.SimunusRecoveryCallback;
-    const preferences = navigator.languages?.length ? navigator.languages : [navigator.language || "en"];
-    const language = preferences.map(value => String(value).toLowerCase().split(/[-_]/)[0])
-        .find(value => Object.hasOwn(messages, value)) || "en";
+    window.SimunusI18n.register("recovery", messages);
+    let language = window.SimunusI18n.current();
     let mode = "request", busy = false, validRecovery = false, passwordUpdated = false;
     let activeSessionRegistered = false, feedbackKey = "", feedbackKind = "";
-    const text = key => messages[language][key];
+    const text = key => window.SimunusI18n.t("recovery", key);
     const cooldown = window.SimunusRecoveryCooldown;
     let mailAccepted = cooldown.read().count > 0, inboxHref = null;
     let announcedUntil = 0;
@@ -272,5 +271,6 @@
             if (validRecovery) $("recovery-new").focus();
         }
     }
+    window.SimunusI18n.subscribe(next => { language = next; announcedUntil = -1; render(); });
     initialize();
 })();

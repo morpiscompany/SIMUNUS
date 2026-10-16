@@ -1,10 +1,10 @@
 /* ============================================================
    SIMULADO DE ESTUDOS — ARQUITETURA FINAL
-   Fluxo: idioma → matéria → fase → JSON → questões
+   Fluxo: acesso → boas-vindas → matéria → fase → questões
    ============================================================ */
 
 const estado = {
-    idioma: "pt",
+    idioma: window.SimunusI18n.current(),
     materiaId: null,
     faseNumero: null,
     bancoAtual: [],
@@ -293,7 +293,9 @@ const textosUI = {
     en: { back: "Back", saveQuestion: "Save question for review", removeSavedQuestion: "Remove question from saved", saveTitle: "Save for review", removeSavedTitle: "Remove from saved questions", shareResult: "Share result", reviewErrors: "Review incorrect", nextPhase: "Next phase", doAgain: "Try Again", chooseAnotherPhase: "Choose another phase", resultFinished: "🏆 Quiz completed!", reviewFinished: "Review completed", phaseFinished: "Phase completed", time: "Time", bestResult: "Best result", shareTitle: "Share result", shareEvolutionTitle: "Share progress", overall: "Overall", bySubject: "By subject", shareDevice: "Share progress", copyShareText: "Copy text", sharePreviewLabel: "Text preview", shareCopied: "Text copied!", shareNativeUnavailable: "Native sharing is not available. Text copied to the clipboard.", shareCopyFailed: "The text could not be copied.", shareNativeFailed: "Native sharing could not be opened. Text copied to the clipboard.", shareProgressHeader: "📚 My progress in SIMUNUS", shareResultHeader: "🏆 My result in SIMUNUS", shareAccuracy: "🎯 Accuracy", shareQuestionsLabel: "📝 Questions answered", shareCorrectLabel: "✅ Correct", shareErrorsLabel: "❌ Errors", shareBestLabel: "🏅 Best result", shareSubjectLabel: "📚 Subject", sharePhaseLabel: "📖 Phase", shareTodayLabel: "📅 Today", sharePreviousLabel: "↩️ Previous result", shareChangeLabel: "📈 Progress", sharePoints: "pp", shareNoActivity: "Keep studying and improving! 🚀", searchResults: "Search results", noPhases: "No phases found.", bestPerformance: "Best performance", attempt: "attempt", attempts: "attempts", question: "question", questions: "questions", close: "Close", wrongQuestions: "Incorrect questions", wrongIntro: "Choose a subject to review your incorrect answers or review all incorrect questions.", noWrong: "You do not have any incorrect questions to review yet.", reviewAllWrong: "Review all incorrect questions", reportProblem: "Report problem", reportQuestion: "Question", reportPrompt: "Found a problem with this question? Tell us below.", customSubject: "Custom subject", customPhase: "Custom phase", reviewLoadError: "Could not locate the saved questions for review. Open the phase again and try again.", reportPlaceholder: "Describe the problem found in this question...", send: "Send" }
 };
 
-const ui = () => textosUI[estado.idioma] || textosUI.pt;
+window.SimunusI18n.register("app", textos);
+window.SimunusI18n.register("ui", textosUI);
+const ui = () => window.SimunusI18n.messages("ui");
 
 const $ = (id) => document.getElementById(id);
 
@@ -318,7 +320,7 @@ const card = document.querySelector(".card");
 const resultadoFinal = $("resultado-final");
 
 function t() {
-    return textos[estado.idioma] || textos.pt;
+    return window.SimunusI18n.messages("app");
 }
 
 function authText(key) {
@@ -402,7 +404,8 @@ function authText(key) {
             support: "Contact support"
         }
     };
-    return (labels[estado.idioma] || labels.pt)[key] || labels.pt[key] || "";
+    window.SimunusI18n.register("auth", labels);
+    return window.SimunusI18n.t("auth", key);
 }
 
 /* ============================================================
@@ -1070,6 +1073,7 @@ function transicaoLogoPermitida(telaAtual, telaDestino) {
     // quando a tela de Boas-vindas é alcançada. Nenhuma navegação posterior
     // captura ou calcula a posição da logo global.
     return (
+        ((telaAtual === telaAcesso || telaAtual === telaCadastro) && telaDestino === telaBoasVindas) ||
         (telaAtual === telaAcesso && telaDestino === telaIdioma) ||
         (telaAtual === telaIdioma && telaDestino === telaBoasVindas)
     );
@@ -1084,6 +1088,7 @@ function transicaoDeTelaPosBoasVindas(telaAtual, telaDestino) {
 }
 
 async function mostrarTela(tela, registrarHistorico = true) {
+    if (tela === telaIdioma) tela = telaBoasVindas;
     const telas = [
         telaAcesso,
         telaCadastro,
@@ -1245,7 +1250,7 @@ function aplicarTema(tema, persistir = true) {
     });
     sincronizarAssetDaLogoGlobal();
 
-    document.querySelectorAll(".botao-tema").forEach((botao) => {
+    document.querySelectorAll(".botao-tema:not([data-language-trigger])").forEach((botao) => {
         botao.setAttribute("aria-pressed", String(escuro));
         const icone = botao.querySelector(".tema-icone");
         if (icone) icone.innerHTML = escuro ? ICONE_TEMA_SUN : ICONE_TEMA_MOON;
@@ -1402,6 +1407,7 @@ function mostrarMensagemDeAcesso(codigo) {
     if (!mensagem) return;
 
     // Código vazio = limpar a mensagem
+    mensagem.dataset.languageCode = codigo || "";
     if (!codigo) {
         mensagem.textContent = "";
         mensagem.dataset.tipo = "";
@@ -1470,9 +1476,11 @@ function mostrarMensagemDeAcesso(codigo) {
 function textoMensagemDeAcesso(codigo) {
     const temporaria = $("mensagem-acesso");
     const textoAtual = temporaria?.textContent || "";
+    const tipoAtual = temporaria?.dataset.tipo || "";
+    const codigoAtual = temporaria?.dataset.languageCode || "";
     mostrarMensagemDeAcesso(codigo);
     const texto = temporaria?.textContent || "";
-    if (temporaria) temporaria.textContent = textoAtual;
+    if (temporaria) { temporaria.textContent = textoAtual; temporaria.dataset.tipo = tipoAtual; temporaria.dataset.languageCode = codigoAtual; }
     return texto;
 }
 
@@ -1523,6 +1531,7 @@ atualizarEstadoBotaoEntrar();
 }
 
 function limparMensagensCadastro() {
+    for (const id of ["mensagem-cadastro", "mensagem-confirmar-senha"]) { delete $(id).dataset.authKey; delete $(id).dataset.backendCode; }
     $("mensagem-cadastro").textContent = "";
     $("mensagem-cadastro").dataset.tipo = "";
     $("mensagem-confirmar-senha").textContent = "";
@@ -1557,6 +1566,7 @@ async function processarCadastro(event) {
     limparMensagensCadastro();
 
     if (senha !== confirmarSenha) {
+        $("mensagem-confirmar-senha").dataset.authKey = "differentPasswords";
         $("mensagem-confirmar-senha").textContent = authText("differentPasswords");
         campoConfirmacao.setAttribute("aria-invalid", "true");
         campoConfirmacao.focus();
@@ -1581,6 +1591,7 @@ async function processarCadastro(event) {
         campoSenha.value = "";
         campoConfirmacao.value = "";
     } else {
+        $("mensagem-cadastro").dataset.backendCode = resultado.code;
         $("mensagem-cadastro").textContent = textoMensagemDeAcesso(resultado.code);
         $("mensagem-cadastro").dataset.tipo = "erro";
     }
@@ -1650,16 +1661,48 @@ function limparEstadoDoQuestionario() {
     estado.carregamentoId++;
 }
 
-// Preferência de idioma: o banco é a fonte de verdade entre dispositivos.
+// Idioma central: escolha manual deste navegador, ou preferências do aparelho.
 function normalizarIdiomaInterface(language) {
     return language === "pt-BR" || language === "pt" ? "pt"
         : language === "es" ? "es" : "en";
 }
 
-function idiomaInicialDoDispositivo() {
-    const languages = navigator.languages?.length ? navigator.languages : [navigator.language || "en"];
-    const primary = String(languages[0] || "en").toLowerCase().split("-")[0];
-    return primary === "pt" ? "pt" : primary === "es" ? "es" : "en";
+function idiomaInicialDoDispositivo() { return window.SimunusI18n.device(); }
+
+function atualizarIdiomaCentral(language) {
+    const previousLanguage = estado.idioma;
+    const values = [...document.querySelectorAll('#formulario-acesso input, #formulario-cadastro input, #formulario-cadastro select, #formulario-cadastro textarea')].map(el => [el, el.value]);
+    const active = document.activeElement;
+    const selection = active && [active.selectionStart, active.selectionEnd];
+    aplicarIdiomaInterface(language);
+    if ($("mensagem-acesso").dataset.languageCode) mostrarMensagemDeAcesso($("mensagem-acesso").dataset.languageCode);
+    for (const id of ["mensagem-cadastro", "mensagem-confirmar-senha"]) {
+        const element = $(id);
+        if (element.textContent && element.dataset.authKey) element.textContent = authText(element.dataset.authKey);
+        else if (element.textContent && element.dataset.backendCode) element.textContent = textoMensagemDeAcesso(element.dataset.backendCode);
+    }
+    atualizarConfiguracoes();
+    aplicarTema(temaAtual(), false);
+    if (!telaMaterias.classList.contains("escondido")) renderizarListaDeMaterias($("campo-pesquisa-materias")?.value || "");
+    if (!telaFases.classList.contains("escondido")) renderizarListaDeFases($("campo-pesquisa-fases")?.value || "");
+    if (!telaDashboard.classList.contains("escondido")) atualizarDashboard();
+    if (!telaSuasFases.classList.contains("escondido")) abrirTelaSuasFases();
+    if (!telaListaFasesCustom.classList.contains("escondido")) mostrarListaFasesCustom(customLibraryFilter, false);
+    if (!telaJogo.classList.contains("escondido")) {
+        atualizarCabecalhoDaFase();
+        if (!resultadoFinal.classList.contains("escondido")) finalizar();
+        else if (estado.simuladoSupabase) void carregarTentativaSupabase(estado.simuladoSupabase.attemptId, estado.simuladoSupabase.activityInfo).catch(() => {});
+        else mostrarPergunta();
+    }
+    // Translate registered UI labels in open dialogs, never field values or question content.
+    document.querySelectorAll('.custom-modal, #modal-alterar-senha, #modal-share-card, #modal-relato-questao').forEach(dialog => {
+        dialog.querySelectorAll('h2, label, label span, legend, button, button span, p, option, input[placeholder], textarea[placeholder]').forEach(el => {
+            for (const node of el.childNodes) if (node.nodeType === Node.TEXT_NODE) node.textContent = window.SimunusI18n.translateExisting(node.textContent, previousLanguage);
+            for (const attr of ['aria-label','title','placeholder']) if (el.hasAttribute(attr)) el.setAttribute(attr, window.SimunusI18n.translateExisting(el.getAttribute(attr), previousLanguage));
+        });
+    });
+    values.forEach(([el,value]) => { el.value = value; });
+    if (active?.isConnected) { active.focus({preventScroll:true}); try { active.setSelectionRange(...selection); } catch (_) {} }
 }
 
 function aplicarIdiomaInterface(language) {
@@ -1680,45 +1723,12 @@ function mensagemErroIdioma(error) {
 }
 
 async function iniciarFluxoComIdiomaPersistente() {
-    try {
-        const saved = await window.SimunusApi.getMyPreferredLanguage();
-        if (saved === null) {
-            aplicarIdiomaInterface(idiomaInicialDoDispositivo());
-            mostrarTela(telaIdioma, false);
-            return;
-        }
-        if (!["pt-BR", "en", "es"].includes(saved)) throw new Error("INVALID_LANGUAGE");
-        aplicarIdiomaInterface(saved);
-        await continuarAposIdioma();
-    } catch (error) {
-        const message = mensagemErroIdioma(error);
-        if (!message) return;
-        console.error("Falha ao recuperar idioma do Supabase:", error);
-        historicoTelas.length = 0;
-        mostrarTela(telaAcessoPendente, false);
-        $("texto-acesso-pendente").textContent = message;
-        $("botao-whatsapp-suporte").hidden = true;
-        $("observacao-acesso-pendente").hidden = true;
-        $("verificar-acesso").hidden = true;
-    }
+    aplicarIdiomaInterface(window.SimunusI18n.current());
+    await continuarAposIdioma();
 }
 
 async function selecionarIdioma(novoIdioma) {
-    if (!["pt", "es", "en"].includes(novoIdioma)) return;
-    document.querySelectorAll(".botao-idioma").forEach(button => button.disabled = true);
-    try {
-        await window.SimunusApi.setMyPreferredLanguage(novoIdioma === "pt" ? "pt-BR" : novoIdioma);
-    } catch (error) {
-        const message = mensagemErroIdioma(error);
-        if (message) {
-            console.error("Falha ao salvar idioma no Supabase:", error);
-            $("pergunta-idioma").textContent = message;
-        }
-        return;
-    } finally {
-        document.querySelectorAll(".botao-idioma").forEach(button => button.disabled = false);
-    }
-    aplicarIdiomaInterface(novoIdioma);
+    window.SimunusI18n.setManual(novoIdioma);
     await continuarAposIdioma();
 }
 
@@ -1859,9 +1869,14 @@ function atualizarTextosDaSelecao() {
 
 function atualizarTextosGlobais() {
     const labels = t().dashboard;
+    atualizarTextosCriarSimulado();
     const setText = (id, value) => { const el = $(id); if (el) el.textContent = value; };
     const setAttr = (id, attr, value) => { const el = $(id); if (el) el.setAttribute(attr, value); };
 
+    for (const [id, value] of Object.entries({"titulo-dashboard":labels.title,"titulo-resumo":labels.performance,"titulo-revisao":labels.review,"titulo-evolucao":labels.evolution,"titulo-lista-fases-custom":t().suasFasesTitulo})) setText(id,value);
+    if (!estado.perguntas.length) {
+        for (const [id,value] of Object.entries({"rotulo-questao":t().rotuloQuestao,"rotulo-pontos":t().rotuloPontos,"rotulo-grupo":t().rotuloGrupo,"tipo-questao":t().tipo,"pergunta":t().carregandoPergunta,"nome-materia-jogo":t().tipo,"subtitulo-jogo":t().carregando})) setText(id,value);
+    }
     // Navegação: os botões de voltar são somente o ArrowLeft existente.
     document.querySelectorAll(".navegacao-voltar-superior, .btn-voltar-dashboard, .btn-voltar-fases").forEach((button) => {
         button.setAttribute("aria-label", ui().back);
@@ -2486,26 +2501,13 @@ async function continuarAtividadeSupabase() {
 async function carregarTentativaSupabase(attemptId, contexto = {}) {
     if (!attemptId) throw new Error("Attempt ID ausente.");
 
-    const idioma = idiomaBackend();
-    const questoes = await window.SimunusApi.getSimulationAttempt(attemptId, idioma);
-    if (!Array.isArray(questoes) || questoes.length === 0) {
-        throw new Error("No questions returned for this attempt.");
-    }
-
-    const questoesComAlternativas = await Promise.all(
-        questoes.map(async (questao) => {
-            const alternativas = await window.SimunusApi.getAttemptQuestionOptions(
-                questao.attempt_question_id,
-                idioma
-            );
-            return {
-                ...questao,
-                alternativasSupabase: Array.isArray(alternativas) ? alternativas : []
-            };
-        })
-    );
+    const content = await window.SimunusContentLanguage.attempt(window.SimunusApi, attemptId, idiomaBackend());
+    if (content.requestedLanguage !== idiomaBackend()) return carregarTentativaSupabase(attemptId, contexto);
+    const idioma = content.language;
+    const questoesComAlternativas = content.questions;
 
     estado.simuladoSupabase = {
+        contentLanguage: idioma,
         simulationId: contexto.simulationId ?? null,
         attemptId,
         mode: contexto.mode || "immediate_feedback",
@@ -2610,6 +2612,7 @@ async function prepararSimuladoSupabase(simulado) {
 }
 
 function mostrarPerguntaSupabase() {
+    window.SimunusContentLanguage.notice(estado.simuladoSupabase?.contentLanguage || idiomaBackend());
     const atual = estado.perguntas[estado.perguntaAtual];
 
     if (!atual) {
@@ -2733,7 +2736,7 @@ async function responderSupabase(botaoClicado, alternativa, pergunta) {
         // 2. Feedback imediato: só aqui buscamos correção e explicação.
         const retorno = await window.SimunusApi.getAttemptQuestionFeedback(
             pergunta.attempt_question_id,
-            idiomaBackend()
+            estado.simuladoSupabase?.contentLanguage || idiomaBackend()
         );
 
         const dados = Array.isArray(retorno)
@@ -3267,13 +3270,20 @@ async function abrirPesquisaFases() {
     }, 250);
 }
 
+function idiomaConteudoQuestao(item) {
+    const table = estado.idioma === "en" ? estado.dadosSemiologia?.traducoesEN : estado.idioma === "es" ? estado.dadosSemiologia?.traducoesES : null;
+    if (estado.materiaId === "semiologia" && table?.[item?.nome]?.pergunta) return estado.idioma;
+    return window.SimunusContentLanguage.questionLanguage(item);
+}
+
 function obterTraducao(item, campo) {
+    const idiomaDaQuestao = idiomaConteudoQuestao(item) || estado.idioma;
     // Bancos v3 (como Imagenologia) mantêm as traduções no próprio JSON.
     // O restante do aplicativo continua usando exatamente o mesmo pipeline.
     const traducoes = item?.translations && typeof item.translations === "object" ? item.translations : null;
     if (traducoes) {
-        const chaveIdioma = estado.idioma === "pt" ? "pt-BR" : estado.idioma === "en" ? "en" : "es";
-        const local = traducoes[chaveIdioma] || traducoes[estado.idioma] || traducoes["pt-BR"] || {};
+        const chaveIdioma = idiomaDaQuestao === "pt" ? "pt-BR" : idiomaDaQuestao === "en" ? "en" : "es";
+        const local = traducoes[chaveIdioma] || traducoes[idiomaDaQuestao] || traducoes["pt-BR"] || {};
         if (campo === "pergunta") return local.stem ?? "";
         if (campo === "descricao") return local.explanation ?? "";
         if (campo === "nome") return local.title ?? item?.classification?.subtopic ?? "";
@@ -3281,19 +3291,19 @@ function obterTraducao(item, campo) {
         if (campo === "alvo") return item?.tested_concept ?? "";
     }
     if (estado.customPhaseId) {
-        if (estado.idioma === "pt") return item[`${campo}PT`] ?? item[campo] ?? "";
-        if (estado.idioma === "en") return item[`${campo}EN`] ?? item[campo] ?? item[`${campo}PT`] ?? "";
+        if (idiomaDaQuestao === "pt") return item[`${campo}PT`] ?? item[campo] ?? "";
+        if (idiomaDaQuestao === "en") return item[`${campo}EN`] ?? item[campo] ?? item[`${campo}PT`] ?? "";
         return item[campo] ?? item[`${campo}PT`] ?? "";
     }
 
-    if (estado.idioma === "es") {
+    if (idiomaDaQuestao === "es") {
         if (estado.materiaId === "semiologia" && estado.dadosSemiologia?.traducoesES?.[item.nome]?.[campo]) {
             return estado.dadosSemiologia.traducoesES[item.nome][campo];
         }
         return item[`${campo}ES`] ?? item[campo] ?? "";
     }
 
-    if (estado.idioma === "en") {
+    if (idiomaDaQuestao === "en") {
         if (estado.materiaId === "semiologia" && estado.dadosSemiologia?.traducoesEN?.[item.nome]?.[campo]) {
             return estado.dadosSemiologia.traducoesEN[item.nome][campo];
         }
@@ -3309,25 +3319,26 @@ function obterTraducao(item, campo) {
 }
 
 function obterRespostaLocalizada(item) {
+    const idiomaDaQuestao = idiomaConteudoQuestao(item) || estado.idioma;
     const traducoes = item?.translations && typeof item.translations === "object" ? item.translations : null;
     if (traducoes) {
-        const chaveIdioma = estado.idioma === "pt" ? "pt-BR" : estado.idioma === "en" ? "en" : "es";
-        const local = traducoes[chaveIdioma] || traducoes[estado.idioma] || traducoes["pt-BR"] || {};
+        const chaveIdioma = idiomaDaQuestao === "pt" ? "pt-BR" : idiomaDaQuestao === "en" ? "en" : "es";
+        const local = traducoes[chaveIdioma] || traducoes[idiomaDaQuestao] || traducoes["pt-BR"] || {};
         const correta = item?.correct_option;
         if (correta && local.options && Object.prototype.hasOwnProperty.call(local.options, correta)) return local.options[correta];
     }
     if (estado.customPhaseId) {
-        if (estado.idioma === "pt") return item.respostaPT ?? item.resposta ?? "";
-        if (estado.idioma === "en") return item.respostaEN ?? item.resposta ?? item.respostaPT ?? "";
+        if (idiomaDaQuestao === "pt") return item.respostaPT ?? item.resposta ?? "";
+        if (idiomaDaQuestao === "en") return item.respostaEN ?? item.resposta ?? item.respostaPT ?? "";
         return item.resposta ?? item.respostaPT ?? "";
     }
-    if (estado.materiaId === "semiologia" && estado.idioma === "es" && estado.dadosSemiologia?.traducoesES?.[item.nome]?.nome) {
+    if (estado.materiaId === "semiologia" && idiomaDaQuestao === "es" && estado.dadosSemiologia?.traducoesES?.[item.nome]?.nome) {
         return estado.dadosSemiologia.traducoesES[item.nome].nome;
     }
-    if (estado.materiaId === "semiologia" && estado.idioma === "en" && estado.dadosSemiologia?.traducoesEN?.[item.nome]?.nome) {
+    if (estado.materiaId === "semiologia" && idiomaDaQuestao === "en" && estado.dadosSemiologia?.traducoesEN?.[item.nome]?.nome) {
         return estado.dadosSemiologia.traducoesEN[item.nome].nome;
     }
-    if (estado.idioma === "en") {
+    if (idiomaDaQuestao === "en") {
         const ingles = item.ingles && typeof item.ingles === "object" ? item.ingles : {};
         if (ingles.resposta) return ingles.resposta;
         const alternativasEN = item.alternativas?.EN;
@@ -3335,7 +3346,7 @@ function obterRespostaLocalizada(item) {
         if (ingles.options && ingles.correctAnswer && ingles.options[ingles.correctAnswer]) return ingles.options[ingles.correctAnswer];
         return item.respostaEN ?? item.resposta ?? item.respostaPT ?? item.nomeEN ?? item.nome ?? "";
     }
-    if (estado.idioma === "es") return item.respostaES ?? item.resposta ?? item.nome ?? "";
+    if (idiomaDaQuestao === "es") return item.respostaES ?? item.resposta ?? item.nome ?? "";
     return item.respostaPT ?? item.resposta ?? item.nomePT ?? item.nome ?? "";
 }
 function traduzirResposta(item) {
@@ -3374,24 +3385,25 @@ function selecionarFasePersonalizada(faseId) {
 
 
 function criarAlternativas(pergunta) {
+    const idiomaDaQuestao = idiomaConteudoQuestao(pergunta) || estado.idioma;
     const respostaCorreta = obterRespostaLocalizada(pergunta);
     let fornecidas = [];
     const traducoes = pergunta?.translations && typeof pergunta.translations === "object" ? pergunta.translations : null;
     if (traducoes) {
-        const chaveIdioma = estado.idioma === "pt" ? "pt-BR" : estado.idioma === "en" ? "en" : "es";
-        const local = traducoes[chaveIdioma] || traducoes[estado.idioma] || traducoes["pt-BR"] || {};
+        const chaveIdioma = idiomaDaQuestao === "pt" ? "pt-BR" : idiomaDaQuestao === "en" ? "en" : "es";
+        const local = traducoes[chaveIdioma] || traducoes[idiomaDaQuestao] || traducoes["pt-BR"] || {};
         if (local.options && typeof local.options === "object") {
             fornecidas = Object.entries(local.options)
                 .filter(([letra]) => letra !== pergunta.correct_option)
                 .map(([,valor]) => valor);
         }
     } else if (estado.customPhaseId) {
-        fornecidas = estado.idioma === "pt"
+        fornecidas = idiomaDaQuestao === "pt"
             ? (Array.isArray(pergunta.incompativeisPT) ? pergunta.incompativeisPT : [])
             : (Array.isArray(pergunta.incompativeis) ? pergunta.incompativeis : []);
-    } else if (estado.idioma === "pt") {
+    } else if (idiomaDaQuestao === "pt") {
         fornecidas = Array.isArray(pergunta.incompativeisPT) ? pergunta.incompativeisPT : [];
-    } else if (estado.idioma === "es") {
+    } else if (idiomaDaQuestao === "es") {
         fornecidas = Array.isArray(pergunta.incompativeis) ? pergunta.incompativeis : [];
     } else {
         const ingles = pergunta.ingles && typeof pergunta.ingles === "object" ? pergunta.ingles : {};
@@ -3405,6 +3417,7 @@ function criarAlternativas(pergunta) {
     }
 
     const doBanco = estado.bancoAtual
+        .filter(item => idiomaConteudoQuestao(item) === idiomaDaQuestao)
         .map((item) => obterRespostaLocalizada(item))
         .filter((item) => item && item !== respostaCorreta);
 
@@ -3414,6 +3427,7 @@ function criarAlternativas(pergunta) {
 }
 function mostrarPergunta() {
     const atual = estado.perguntas[estado.perguntaAtual];
+    if (atual) window.SimunusContentLanguage.notice(idiomaConteudoQuestao(atual));
     if (!atual) return;
 
     $("numero-questao").textContent = `${estado.perguntaAtual + 1}/${estado.perguntas.length}`;
@@ -4491,16 +4505,16 @@ function mostrarEditorFase(faseRef = null) {
             <input type="hidden" id="custom-phase-id" value="${escaparValorFormulario(phaseDraft.id || "")}">
             <div class="custom-grid">
                 <label>${escaparValorFormulario(t().nomeMateria)} *
-                    <input id="custom-name" placeholder="Ex.: Anatomia" required maxlength="100" value="${escaparValorFormulario(phaseDraft.name || "")}">
+                    <input id="custom-name" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleAnatomy"))}" required maxlength="100" value="${escaparValorFormulario(phaseDraft.name || "")}">
                 </label>
                 <label>${escaparValorFormulario(t().temaMateria)}
-                    <input id="custom-category" placeholder="Ex.: Ossos longos" maxlength="100" value="${escaparValorFormulario(phaseDraft.category || "")}">
+                    <input id="custom-category" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleBones"))}" maxlength="100" value="${escaparValorFormulario(phaseDraft.category || "")}">
                 </label>
                 <label class="custom-full">${escaparValorFormulario(t().descricaoMateria)}
-                    <textarea id="custom-description" placeholder="Ex.: Estudo da classificação e características dos ossos longos" maxlength="220">${escaparValorFormulario(phaseDraft.description || "")}</textarea>
+                    <textarea id="custom-description" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleStudy"))}" maxlength="220">${escaparValorFormulario(phaseDraft.description || "")}</textarea>
                 </label>
                 <label>${escaparValorFormulario(t().grupoMateria)}
-                    <input id="custom-group" maxlength="100" placeholder="Ex.: Esqueleto" value="${escaparValorFormulario(phaseDraft.group || "")}">
+                    <input id="custom-group" maxlength="100" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleSkeleton"))}" value="${escaparValorFormulario(phaseDraft.group || "")}">
                 </label>
                 <label hidden>${escaparValorFormulario(t().dificuldade)}
                     <select id="custom-difficulty">
@@ -4601,22 +4615,22 @@ function editarQuestaoCustom(draft, index, done) {
         <form id="custom-question-form" class="custom-form">
             <div class="custom-grid">
                 <label>${escaparValorFormulario(t().questaoTitulo)} / ${estado.idioma === "pt" ? "Tema" : estado.idioma === "en" ? "Topic" : "Tema"}
-                    <input id="q-nome" placeholder="Ex.: Ossos longos" value="${escaparValorFormulario(q.nomePT || q.nome)}">
+                    <input id="q-nome" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleBones"))}" value="${escaparValorFormulario(q.nomePT || q.nome)}">
                 </label>
                 <label>${escaparValorFormulario(t().grupoQuestao)}
-                    <input id="q-grupo" placeholder="Ex.: Esqueleto" value="${escaparValorFormulario(q.grupoPT || q.grupo)}">
+                    <input id="q-grupo" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleSkeleton"))}" value="${escaparValorFormulario(q.grupoPT || q.grupo)}">
                 </label>
                 <label class="custom-full">${escaparValorFormulario(t().enunciadoPT)} *
-                    <textarea id="q-pergunta-pt" placeholder="Ex.: Qual é o maior osso do corpo humano?" required>${escaparValorFormulario(q.perguntaPT || q.pergunta)}</textarea>
+                    <textarea id="q-pergunta-pt" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleQuestion"))}" required>${escaparValorFormulario(q.perguntaPT || q.pergunta)}</textarea>
                 </label>
                 <label>${escaparValorFormulario(t().respostaPT)} *
-                    <input id="q-resposta-pt" placeholder="Ex.: Fêmur" required value="${escaparValorFormulario(q.respostaPT || q.resposta)}">
+                    <input id="q-resposta-pt" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleAnswer"))}" required value="${escaparValorFormulario(q.respostaPT || q.resposta)}">
                 </label>
                 <label>${escaparValorFormulario(t().explicacaoPT)}
-                    <textarea id="q-desc-pt" placeholder="Ex.: O fêmur é o maior e mais longo osso do corpo humano.">${escaparValorFormulario(q.descricaoPT || q.descricao)}</textarea>
+                    <textarea id="q-desc-pt" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleExplanation"))}">${escaparValorFormulario(q.descricaoPT || q.descricao)}</textarea>
                 </label>
                 <label>${escaparValorFormulario(t().alvoPT)}
-                    <input id="q-alvo-pt" placeholder="Ex.: Diferenciar os ossos longos" value="${escaparValorFormulario(q.alvoPT || q.alvo)}">
+                    <input id="q-alvo-pt" placeholder="${escaparValorFormulario(window.SimunusI18n.t("common", "exampleObjective"))}" value="${escaparValorFormulario(q.alvoPT || q.alvo)}">
                 </label>
 
                 <div class="custom-full custom-alternativas-editor">
@@ -4738,12 +4752,12 @@ function mostrarListaFasesCustom(filtro="todas", registrarHistorico = true) {
         delete: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m5 4v6m4-6v6"/></svg>`
     };
     container.innerHTML = materiasCustom.map(m => `
-        <article class="custom-manage-card custom-library-card" data-phase-id="${escaparValorFormulario(m.id)}" role="button" tabindex="0" aria-label="Abrir fase: ${escaparValorFormulario(m.name)}">
+        <article class="custom-manage-card custom-library-card" data-phase-id="${escaparValorFormulario(m.id)}" role="button" tabindex="0" aria-label="${escaparValorFormulario(window.SimunusI18n.t("common", "openPhase"))}: ${escaparValorFormulario(m.name)}">
             <div class="custom-library-main">
-                <button type="button" class="custom-drag-handle" data-drag="${escaparValorFormulario(m.id)}" aria-label="Reorganizar fase" title="Arraste para reorganizar">${grip}</button>
+                <button type="button" class="custom-drag-handle" data-drag="${escaparValorFormulario(m.id)}" aria-label="${escaparValorFormulario(window.SimunusI18n.t("common", "reorderPhase"))}" title="${escaparValorFormulario(window.SimunusI18n.t("common", "dragReorder"))}">${grip}</button>
                 <div class="custom-library-info"><h3>${escaparValorFormulario(m.name)}</h3><p>${escaparValorFormulario(m.description || m.category || "")}</p><small>${m.questions.length} ${estado.idioma === "es" ? "preguntas" : estado.idioma === "en" ? "questions" : m.questions.length === 1 ? "questão" : "questões"}</small></div>
                 <button type="button" class="custom-library-icon ${m.favorite ? "is-favorite" : ""}" data-fav="${escaparValorFormulario(m.id)}" aria-label="${escaparValorFormulario(t().favorito)}" aria-pressed="${m.favorite}">${star}</button>
-                <div class="custom-library-menu-wrap"><button type="button" class="custom-library-icon" data-menu="${escaparValorFormulario(m.id)}" aria-label="Mais opções" aria-expanded="false">${more}</button>
+                <div class="custom-library-menu-wrap"><button type="button" class="custom-library-icon" data-menu="${escaparValorFormulario(m.id)}" aria-label="${escaparValorFormulario(window.SimunusI18n.t("common", "moreOptions"))}" aria-expanded="false">${more}</button>
                     <div class="custom-library-menu" hidden>
                         <button type="button" data-edit="${escaparValorFormulario(m.id)}">${menuIcon.edit}<span>${escaparValorFormulario(t().editar)}</span></button>
                         <button type="button" data-dup="${escaparValorFormulario(m.id)}">${menuIcon.duplicate}<span>${escaparValorFormulario(t().duplicar)}</span></button>
@@ -5031,7 +5045,7 @@ $("form-relato-questao")?.addEventListener("submit", (event) => {
     }
     // Evento local preparado para futura integração; nenhum backend é chamado.
     document.dispatchEvent(new CustomEvent("simunus:question-report", { detail: relato }));
-    $("feedback-relato-questao").textContent = "Relato preparado. O envio ainda não está conectado.";
+    $("feedback-relato-questao").textContent = window.SimunusI18n.t("common", "reportPrepared");
 });
 document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && reportModal && !reportModal.classList.contains("escondido")) fecharRelatoQuestao();
@@ -5138,7 +5152,7 @@ document.querySelectorAll("[data-idioma]").forEach((botao) => {
     botao.addEventListener("click", () => selecionarIdioma(botao.dataset.idioma));
 });
 
-document.querySelectorAll(".botao-tema").forEach((botao) => {
+document.querySelectorAll(".botao-tema:not([data-language-trigger])").forEach((botao) => {
     botao.addEventListener("click", () => {
         alternarTema();
         atualizarConfiguracoes();
@@ -5192,7 +5206,7 @@ function abrirTelaConfiguracoes(origem = null) {
     mostrarTela(telaConfiguracoes);
 }
 
-$("abrir-configuracoes").addEventListener("click", () => abrirTelaConfiguracoes(telaIdioma));
+$("abrir-configuracoes").addEventListener("click", () => abrirTelaConfiguracoes(telaBoasVindas));
 $("abrir-configuracoes-boas")?.addEventListener("click", () => abrirTelaConfiguracoes(telaBoasVindas));
 $("dashboard-configuracoes")?.addEventListener("click", () => abrirTelaConfiguracoes(telaDashboard));
 
@@ -5200,38 +5214,7 @@ $("voltar-configuracoes").addEventListener("click", voltarTelaAnterior);
 
 $("slider-fonte")?.addEventListener("input", (event) => aplicarFonte(event.target.value));
 document.querySelectorAll(".botao-idioma-config").forEach((botao) => {
-    botao.addEventListener("click", async () => {
-        const novoIdioma = botao.dataset.configIdioma;
-        if (!["pt", "es", "en"].includes(novoIdioma)) return;
-        if (novoIdioma === estado.idioma) return;
-        document.querySelectorAll(".botao-idioma-config").forEach(button => button.disabled = true);
-        try {
-            await window.SimunusApi.setMyPreferredLanguage(novoIdioma === "pt" ? "pt-BR" : novoIdioma);
-        } catch (error) {
-            const message = mensagemErroIdioma(error);
-            if (message) {
-                console.error("Falha ao alterar preferência de idioma:", error);
-                window.alert(message);
-            }
-            return;
-        } finally {
-            document.querySelectorAll(".botao-idioma-config").forEach(button => button.disabled = false);
-        }
-        estado.idioma = novoIdioma;
-        atualizarIdiomaDaPagina();
-        atualizarTextosDeAcesso();
-        atualizarTextosDaSelecao();
-        if (!telaMaterias.classList.contains("escondido")) renderizarListaDeMaterias($("campo-pesquisa-materias")?.value || "");
-        if (!telaFases.classList.contains("escondido")) renderizarListaDeFases($("campo-pesquisa-fases")?.value || "");
-        if (!telaDashboard.classList.contains("escondido")) atualizarDashboard();
-        if (!telaJogo.classList.contains("escondido")) {
-            atualizarCabecalhoDaFase();
-            if (!resultadoFinal.classList.contains("escondido")) finalizar();
-            else mostrarPergunta();
-        }
-        atualizarConfiguracoes();
-        atualizarTextosGlobais();
-    });
+    botao.addEventListener("click", () => window.SimunusI18n.setManual(botao.dataset.configIdioma));
 });
 
 $("abrir-suas-fases").addEventListener("click", abrirTelaSuasFases);
@@ -5342,6 +5325,7 @@ window.addEventListener("resize", () => {
     limparCamadaGlobalDaLogo();
 });
 
+window.SimunusI18n.subscribe(atualizarIdiomaCentral);
 carregarDadosEstudo();
 carregarTemaSalvo();
 acompanharPreferenciaDeTemaDoSistema();

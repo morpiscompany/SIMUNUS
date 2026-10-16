@@ -18,6 +18,8 @@
             } catch (_) {}
         })();
     </script>
+    <script src="./language.js?v=language-1"></script>
+    <link rel="stylesheet" href="./css/language.css?v=language-1">
     <title>SIMUNUS</title>
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -30,6 +32,7 @@
             <button id="alternar-tema-acesso" class="botao-tema botao-tema-acesso" type="button" aria-label="Ativar modo escuro" aria-pressed="false" title="Modo escuro">
                 <span class="tema-icone" aria-hidden="true"><svg class="lucide lucide-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20.985 12.486A9 9 0 1 1 11.514 3.015 7 7 0 0 0 20.985 12.486z"></path></svg></span>
             </button>
+            <div class="language-control"><button id="language-trigger-acesso" class="botao-tema" type="button" data-language-trigger aria-label="Choose language" aria-haspopup="menu" aria-expanded="false" aria-controls="language-menu-acesso"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a18 18 0 0 1 0 20 18 18 0 0 1 0-20"/></svg></button><div id="language-menu-acesso" class="language-menu" role="menu" aria-labelledby="language-trigger-acesso" hidden><button type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-language-choice="en">English</button><button type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-language-choice="pt">Português (Brasil)</button><button type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-language-choice="es">Español</button></div></div>
             <div class="acesso-conteudo">
                 <img class="logo-simunus logo-simunus-acesso" src="./assets/simunus-logo-dark.png" data-logo-dark="./assets/simunus-logo-dark.png" data-logo-light="./assets/simunus-logo-light.png" alt="SIMUNUS">
                 <h1 id="titulo-acesso" class="visually-hidden">SIMUNUS</h1>
@@ -64,6 +67,7 @@
             <button id="alternar-tema-cadastro" class="botao-tema botao-tema-acesso" type="button" aria-label="Ativar modo escuro" aria-pressed="false" title="Modo escuro">
                 <span class="tema-icone" aria-hidden="true"><svg class="lucide lucide-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20.985 12.486A9 9 0 1 1 11.514 3.015 7 7 0 0 0 20.985 12.486z"></path></svg></span>
             </button>
+            <div class="language-control"><button id="language-trigger-cadastro" class="botao-tema" type="button" data-language-trigger aria-label="Choose language" aria-haspopup="menu" aria-expanded="false" aria-controls="language-menu-cadastro"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a18 18 0 0 1 0 20 18 18 0 0 1 0-20"/></svg></button><div id="language-menu-cadastro" class="language-menu" role="menu" aria-labelledby="language-trigger-cadastro" hidden><button type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-language-choice="en">English</button><button type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-language-choice="pt">Português (Brasil)</button><button type="button" role="menuitemradio" aria-checked="false" tabindex="-1" data-language-choice="es">Español</button></div></div>
             <div class="acesso-conteudo">
                 <img class="logo-simunus logo-simunus-acesso" src="./assets/simunus-logo-dark.png" data-logo-dark="./assets/simunus-logo-dark.png" data-logo-light="./assets/simunus-logo-light.png" alt="SIMUNUS">
                 <h1 id="titulo-cadastro" class="visually-hidden">Criar conta</h1>
@@ -109,7 +113,7 @@
         </section>
 
         <!-- 1. Idioma -->
-        <section id="tela-idioma" class="tela tela-idioma escondido" aria-labelledby="titulo-idioma">
+        <section id="tela-idioma" hidden class="tela tela-idioma escondido" aria-labelledby="titulo-idioma">
             <div class="acoes-superiores">
             <button id="alternar-tema-idioma" class="botao-tema" type="button" aria-label="Alternar modo de tema" aria-pressed="false" title="Modo escuro">
                 <span class="tema-icone" aria-hidden="true"><svg class="lucide lucide-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20.985 12.486A9 9 0 1 1 11.514 3.015 7 7 0 0 0 20.985 12.486z"></path></svg></span>
@@ -544,10 +548,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3" integrity="sha384-dl/4LkSyQ4uEucc48NM6VDZLAjLLq9yMzZ5JLXumBq7Ld33XBof73hseOqPhO89+" crossorigin="anonymous"></script>
     <script src="./supabase.js?v=recovery-1"></script>
-    <script src="./simunus-api.js"></script>
+    <script src="./simunus-api.js?v=language-1"></script>
     <script src="./auth.js?v=recovery-1"></script>
     <script src="./custom-phases.js"></script>
-    <script src="./password-visibility.js"></script>
-    <script src="./script.js?v=recovery-1"></script>
+    <script src="./password-visibility.js?v=language-1"></script>
+    <script src="./content-language.js?v=language-1"></script>
+    <script src="./script.js?v=language-1"></script>
+    <script src="./language-menu.js?v=language-1"></script>
 </body>
 </html>
