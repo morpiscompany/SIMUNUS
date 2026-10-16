@@ -9,7 +9,7 @@
     <title>SIMUNUS — Recuperar senha</title>
     <script src="./recovery-capture.js?v=recovery-1"></script>
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./css/recovery.css?v=recovery-1">
+    <link rel="stylesheet" href="./css/recovery.css?v=recovery-2">
 </head>
 <body class="recovery-page">
     <main class="senha-modal" aria-labelledby="recovery-title">
@@ -21,8 +21,10 @@
         <form id="recovery-request" novalidate hidden>
             <label for="recovery-email" data-text="email">E-mail</label>
             <input id="recovery-email" type="email" autocomplete="email" inputmode="email" required maxlength="254">
+            <p id="recovery-countdown" aria-hidden="true"></p>
             <button class="btn-proxima" type="submit" data-text="send"></button>
         </form>
+        <p id="recovery-cooldown-status" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
         <form id="recovery-password" novalidate hidden>
             <label for="recovery-new" data-text="newPassword"></label>
             <input id="recovery-new" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="recovery-policy">
@@ -32,14 +34,27 @@
             <button class="btn-proxima" type="submit" data-text="save"></button>
         </form>
         <p id="recovery-feedback" class="senha-modal-feedback" role="status" aria-live="polite"></p>
+        <div id="recovery-mail-actions" hidden>
+            <a id="recovery-check-mail" class="btn-secundario" target="_blank" rel="noopener noreferrer" data-text="checkMail" hidden></a>
+            <button id="recovery-mail-choice" class="btn-secundario" type="button" data-text="checkMail" hidden></button>
+            <div id="recovery-mail-options" hidden>
+                <p data-text="chooseProvider"></p>
+                <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">Gmail</a>
+                <a href="https://outlook.live.com/mail/0/inbox" target="_blank" rel="noopener noreferrer">Outlook</a>
+                <a href="https://mail.yahoo.com/" target="_blank" rel="noopener noreferrer">Yahoo Mail</a>
+                <a href="https://www.icloud.com/mail" target="_blank" rel="noopener noreferrer">iCloud Mail</a>
+            </div>
+            <p class="recovery-mail-hint" data-text="mailHint"></p>
+        </div>
         <button id="recovery-retry-cleanup" class="btn-proxima" type="button" data-text="retryCleanup" hidden></button>
         <button id="recovery-another" class="btn-secundario" type="button" data-text="another" hidden></button>
         <a id="recovery-login" href="./index.html" data-text="login"></a>
         <noscript>Ative o JavaScript para recuperar sua senha.</noscript>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3" integrity="sha384-dl/4LkSyQ4uEucc48NM6VDZLAjLLq9yMzZ5JLXumBq7Ld33XBof73hseOqPhO89+" crossorigin="anonymous"></script>
-    <script src="./supabase.js?v=recovery-1"></script>
+    <script src="./supabase.js?v=recovery-2"></script>
     <script src="./recovery-config.js?v=recovery-1"></script>
-    <script src="./recovery.js?v=recovery-1"></script>
+    <script src="./recovery-cooldown.js?v=recovery-2"></script>
+    <script src="./recovery.js?v=recovery-2"></script>
 </body>
 </html>

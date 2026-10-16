@@ -24,8 +24,16 @@
     }
 
     const recoveryPage = location.pathname.endsWith("/recovery.html");
+    let recoveryRetryAfter = null;
     const client = isConfigured() && !window.SIMUNUS_RECOVERY_REDIRECT
         ? window.supabase.createClient(config.url, config.anonKey, {
+            ...(recoveryPage ? { global: { fetch: async (input, init) => {
+                const response = await fetch(input, init);
+                if (new URL(typeof input === "string" ? input : input.url).pathname === "/auth/v1/recover") {
+                    recoveryRetryAfter = response.headers.get("Retry-After");
+                }
+                return response;
+            } } } : {}),
             auth: {
                 persistSession: !recoveryPage,
                 autoRefreshToken: true,
@@ -43,6 +51,7 @@
     window.SimunusSupabase = Object.freeze({
         client,
         isConfigured,
+        getRecoveryRetryAfter: () => recoveryRetryAfter,
         getConfig: () => ({ url: config.url, anonKeyConfigured: Boolean(config.anonKey) })
     });
 })();

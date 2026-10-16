@@ -6,7 +6,9 @@
         pt: {
             title: "Recuperar senha", description: "Informe seu e-mail para receber as instruções.",
             resetTitle: "Redefinir senha", resetDescription: "Escolha uma nova senha para sua conta.",
-            email: "E-mail", send: "Enviar instruções", newPassword: "Nova senha", confirm: "Confirmar nova senha",
+            email: "E-mail", send: "Enviar link", sending: "Enviando...", newPassword: "Nova senha", confirm: "Confirmar nova senha",
+            wait: "Aguarde {time} para enviar outro link.", available: "Você já pode enviar outro link.", checkMail: "Conferir e-mail",
+            chooseProvider: "Abra seu serviço de e-mail ou escolha uma opção:", mailHint: "Abra a mensagem mais recente. Confira também Spam ou Lixo eletrônico.",
             save: "Salvar nova senha", login: "Voltar para entrar", another: "Solicitar outro link",
             policy: "Use entre 8 e 128 caracteres. Requisitos adicionais de segurança serão verificados pelo servidor.",
             accepted: "Se existir uma conta vinculada a este e-mail, enviaremos as instruções para redefinir sua senha.",
@@ -25,7 +27,9 @@
         es: {
             title: "Recuperar contraseña", description: "Ingresa tu correo para recibir las instrucciones.",
             resetTitle: "Restablecer contraseña", resetDescription: "Elige una nueva contraseña para tu cuenta.",
-            email: "Correo electrónico", send: "Enviar instrucciones", newPassword: "Nueva contraseña", confirm: "Confirmar nueva contraseña",
+            email: "Correo electrónico", send: "Enviar enlace", sending: "Enviando...", newPassword: "Nueva contraseña", confirm: "Confirmar nueva contraseña",
+            wait: "Espera {time} para enviar otro enlace.", available: "Ya puedes enviar otro enlace.", checkMail: "Revisar correo",
+            chooseProvider: "Abre tu servicio de correo o elige una opción:", mailHint: "Abre el mensaje más reciente. Revisa también Spam o Correo no deseado.",
             save: "Guardar nueva contraseña", login: "Volver a iniciar sesión", another: "Solicitar otro enlace",
             policy: "Usa entre 8 y 128 caracteres. El servidor verificará los requisitos adicionales de seguridad.",
             accepted: "Si existe una cuenta vinculada a este correo, enviaremos las instrucciones para restablecer tu contraseña.",
@@ -44,7 +48,9 @@
         en: {
             title: "Recover password", description: "Enter your email to receive instructions.",
             resetTitle: "Reset password", resetDescription: "Choose a new password for your account.",
-            email: "Email", send: "Send instructions", newPassword: "New password", confirm: "Confirm new password",
+            email: "Email", send: "Send link", sending: "Sending...", newPassword: "New password", confirm: "Confirm new password",
+            wait: "Wait {time} before sending another link.", available: "You can send another link now.", checkMail: "Check email",
+            chooseProvider: "Open your email service or choose an option:", mailHint: "Open the most recent message. Also check Spam or Junk.",
             save: "Save new password", login: "Back to sign in", another: "Request another link",
             policy: "Use 8–128 characters. Additional security requirements will be checked by the server.",
             accepted: "If an account is associated with this email, we will send instructions to reset your password.",
@@ -70,6 +76,29 @@
     let mode = "request", busy = false, validRecovery = false, passwordUpdated = false;
     let activeSessionRegistered = false, feedbackKey = "", feedbackKind = "";
     const text = key => messages[language][key];
+    const cooldown = window.SimunusRecoveryCooldown;
+    let mailAccepted = cooldown.read().lastAcceptedAt > 0, inboxHref = null;
+    let announcedUntil = 0;
+    function inboxFor(email) {
+        const domain = email.slice(email.lastIndexOf("@") + 1).toLowerCase();
+        if (["gmail.com", "googlemail.com"].includes(domain)) return "https://mail.google.com/mail/u/0/#inbox";
+        if (/^(outlook|hotmail|live)\.(com|com\.br|es|co\.uk|fr|de|it|pt)$/.test(domain)) return "https://outlook.live.com/mail/0/inbox";
+        if (/^yahoo\.(com|com\.br|es|co\.uk|fr|de|it|ca)$/.test(domain)) return "https://mail.yahoo.com/";
+        if (["icloud.com", "me.com", "mac.com"].includes(domain)) return "https://www.icloud.com/mail";
+        return null;
+    }
+    function updateCooldown() {
+        const seconds = cooldown.remaining();
+        const time = `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+        const label = seconds ? text("wait").replace("{time}", time) : "";
+        $("recovery-countdown").textContent = label;
+        document.querySelector("#recovery-request button").disabled = busy || seconds > 0;
+        const until = seconds ? cooldown.read().until : 0;
+        if (until !== announcedUntil) {
+            $("recovery-cooldown-status").textContent = seconds ? label : text("available");
+            announcedUntil = until;
+        }
+    }
     function render() {
         document.querySelector(".recovery-logo").src = document.documentElement.dataset.tema === "escuro"
             ? "./assets/simunus-logo-dark.png" : "./assets/simunus-logo-light.png";
@@ -86,9 +115,15 @@
         $("recovery-feedback").dataset.kind = feedbackKind;
         document.querySelectorAll("input, button, select").forEach(el => el.disabled = busy);
         document.querySelectorAll("form").forEach(el => el.setAttribute("aria-busy", String(busy)));
+        $("recovery-mail-actions").hidden = !mailAccepted || mode !== "request";
+        $("recovery-check-mail").hidden = !inboxHref;
+        if (inboxHref) $("recovery-check-mail").href = inboxHref;
+        $("recovery-mail-choice").hidden = Boolean(inboxHref);
+        $("recovery-mail-choice").disabled = false;
+        updateCooldown();
         if (busy) {
             const button = document.querySelector(mode === "request" ? "#recovery-request button" : "#recovery-password button");
-            if (button) button.textContent = text("busy");
+            if (button) button.textContent = text(mode === "request" ? "sending" : "busy");
         }
     }
     function feedback(key, kind = "error") { feedbackKey = key; feedbackKind = kind; render(); }
@@ -114,9 +149,11 @@
         validRecovery = false; busy = false; mode = "request"; feedbackKey = ""; render();
         $("recovery-email").focus();
     });
-    $("recovery-request").addEventListener("submit", async event => {
-        event.preventDefault();
-        if (busy) return;
+    $("recovery-mail-choice").addEventListener("click", () => {
+        $("recovery-mail-options").hidden = !$("recovery-mail-options").hidden;
+    });
+    async function requestLink() {
+        if (busy || cooldown.remaining() > 0) return;
         const email = $("recovery-email").value.trim();
         $("recovery-email").value = email;
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
@@ -130,10 +167,27 @@
             const redirectTo = window.SimunusRecoveryConfig.getRedirectTo();
             const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
             if (error) throw error;
+            cooldown.accepted();
+            mailAccepted = true; inboxHref = inboxFor(email);
+            $("recovery-mail-options").hidden = true;
             feedback("accepted", "success");
-        } catch (error) { feedback(errorKey(error)); }
+        } catch (error) {
+            if (errorKey(error) === "rate") cooldown.limited(window.SimunusSupabase.getRecoveryRetryAfter?.());
+            feedback(errorKey(error));
+        }
         finally { busy = false; render(); }
+    }
+    $("recovery-request").addEventListener("submit", async event => {
+        event.preventDefault();
+        // Serializes overlapping requests from same-origin tabs where Web Locks is available.
+        if (navigator.locks?.request) {
+            await navigator.locks.request("simunus-recovery-send", { ifAvailable: true }, lock => lock ? requestLink() : undefined);
+        } else { await requestLink(); }
     });
+    cooldown.subscribe(updateCooldown);
+    setInterval(updateCooldown, 1000);
+    window.addEventListener("focus", updateCooldown);
+    document.addEventListener("visibilitychange", updateCooldown);
     async function finishRecovery() {
         // Register only AFTER updateUser succeeds: opening an email must not replace the user's session.
         // The existing RPC rejects older sessions superseded by a newer login. Global sign-out
